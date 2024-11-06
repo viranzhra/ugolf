@@ -1,45 +1,145 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=kufam:400,600&display=swap" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Kufam&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        .navbar-custom {
-            background: #8F3581;
+         /* Prevent scrolling */
+         html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* Ensures full height */
+            overflow: hidden; /* Prevent scrolling */
+        }
+        
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Kufam', sans-serif;
+            background-color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
         }
-        .navbar-custom .navbar-brand {
-            color: white; /* White text for the brand */
+
+        .judul {
+            width: 776px;
+            height: 70px;
+            background-color: #8F3581;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 28px;
+            font-weight: bold;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+            letter-spacing: 5px;
         }
-        .navbar-custom .navbar-nav .nav-link {
-            color: white; /* White text for nav items */
+
+        /* Posisi tombol Kembali dan Beli Tiket */
+        .btn-container {
+            position: absolute;
+            bottom: 60px;
+            right: 70px;
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
         }
-        .navbar-custom .navbar-nav .nav-link:hover {
-            color: #ddd; /* Light grey on hover */
+
+        .btn-container button {
+            background: rgb(143, 53, 129);
+            background: linear-gradient(180deg, rgba(143, 53, 129, 0.9557072829131653) 72%, rgba(81, 13, 70, 1) 100%);
+            color: white;
+            font-size: 15px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            letter-spacing: 2px;
+        }
+
+        .btn-container button:hover {
+            background: linear-gradient(180deg, rgba(168, 55, 143, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
+        }
+
+        @media (max-width: 576px) {
+            .quantity-control-wrapper {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .quantity-control-wrapper button,
+            .quantity-control-wrapper input {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .btn-container {
+                position: static;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .judul {
+                font-size: 28px;
+                padding: 15px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .judul {
+                font-size: 30px;
+                padding: 18px 0;
+            }
+
+            .btn-container {
+                right: 50px;
+                bottom: 50px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <!-- Bagian Judul (Navbar) -->
+    <div class="judul">
+        KONFIRMASI
+    </div>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">KONFIRMASI</a>
-        </div>
-    </nav>
+    
 
+    <!-- Tombol Kembali dan Beli Tiket -->
+    <div class="btn-container mt-4">
+        <button onclick="goBack()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256"><path d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z"></path></svg>
+            <b>KEMBALI</b>
+        </button>
+        <button onclick="buyTicket()">
+            <b>LANJUTKAN PEMBAYARAN</b>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256"><path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path></svg>
+        </button>
+    </div>
 </body>
 
 </html>

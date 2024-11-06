@@ -69,11 +69,10 @@
             height: 126px;
             background-color: white;
             color: #7D2B71;
-            padding: 10px 0px 0px 0px;
+            padding: 15px 30px;
             font-size: 40px; /* Font size updated to 40px */
             font-family: 'Kufam', sans-serif; /* Font changed to Kufam */
             font-weight: 700;
-            gap: 20px;
             line-height: 52px;
             border-radius: 120px;
             cursor: pointer;

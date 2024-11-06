@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/awal', function () {
     return view('home/ugolf');
 });
+
+Route::get('/qty', function () {
+    return view('qty/index');
+});

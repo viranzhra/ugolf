@@ -13,3 +13,11 @@ Route::get('/awal', function () {
 Route::get('/qty', function () {
     return view('qty/index');
 });
+
+Route::get('/payment', function () {
+    return view('payment/index');
+});
+
+Route::get('/done', function () {
+    return view('done/index');
+});

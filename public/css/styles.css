@@ -1,0 +1,335 @@
+:root {
+    --primary-color: #8f3581;
+    --secondary-color: #ffecfc;
+    --font-color: white;
+    --btn-hover-color: #fdd6f7;
+    --btn-gradient: linear-gradient(
+        180deg,
+        rgba(143, 53, 129, 0.955) 72%,
+        rgba(81, 13, 70, 1) 100%
+    );
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Kufam", sans-serif;
+    background-color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+
+.judul {
+    width: 100%;
+    max-width: 776px;
+    height: 70px;
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 26px;
+    font-weight: bold;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+    letter-spacing: 5px;
+}
+
+.quantity-control-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    gap: 20px;
+    width: 100%;
+}
+
+.quantity-control-wrapper button {
+    color: var(--primary-color);
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.quantity-control-wrapper input {
+    font-size: 18px;
+    text-align: center;
+    width: 35%;
+    max-width: 200px;
+    height: 60px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    outline: none;
+}
+
+#quantity-input::placeholder {
+    color: rgb(185, 185, 185);
+}
+
+.angka {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.calc-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: bold;
+    border: 3px solid var(--primary-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.calc-btn:hover {
+    background-color: var(--btn-hover-color);
+    border-color: var(--primary-color);
+}
+
+.zero {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+/* Posisi tombol Kembali dan Beli Tiket */
+.btn-container {
+    position: absolute;
+    bottom: 60px;
+    right: 70px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.btn-container button {
+    background: rgb(143, 53, 129);
+    background: linear-gradient(
+        180deg,
+        rgba(143, 53, 129, 0.9557072829131653) 72%,
+        rgba(81, 13, 70, 1) 100%
+    );
+    color: white;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    letter-spacing: 2px;
+}
+
+.btn-container button:hover {
+    background: linear-gradient(
+        180deg,
+        rgba(168, 55, 143, 0.95) 72%,
+        rgba(81, 13, 70, 1) 100%
+    );
+}
+
+/* Ensuring .quantity-control-wrapper and .btn-container stay aligned horizontally */
+@media (max-width: 576px) {
+    .quantity-control-wrapper,
+    .btn-container {
+        display: flex;
+        flex-direction: row; /* Align items in a row */
+        justify-content: center; /* Center elements horizontally */
+        align-items: center; /* Align items vertically */
+        gap: 10px; /* Adjust gap to prevent overlap */
+    }
+
+    .quantity-control-wrapper {
+        max-width: 100%; /* Allow it to take full width */
+        flex-wrap: wrap; /* Allow wrapping if necessary */
+    }
+
+    .quantity-control-wrapper input {
+        width: 60%; /* Adjust input width */
+    }
+
+    .quantity-control-wrapper button,
+    .quantity-control-wrapper svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .btn-container {
+        flex-direction: row; /* Keep the buttons in a row */
+        align-items: center; /* Ensure buttons are aligned */
+        gap: 15px; /* Add some space between buttons */
+        padding: 0;
+    }
+
+    .calc-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
+}
+
+/* Adjust for even smaller screens, ensuring alignment */
+@media (max-width: 400px) {
+    .quantity-control-wrapper,
+    .btn-container {
+        flex-direction: column; /* Stack elements in a column for very small screens */
+        align-items: center; /* Center the content */
+    }
+
+    .quantity-control-wrapper input {
+        width: 100%; /* Ensure input takes full width */
+    }
+
+    .calc-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+    /* .quantity-control-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .quantity-control-wrapper button,
+    .quantity-control-wrapper input {
+        width: 100%;
+        max-width: 300px;
+    } */
+
+    .btn-container {
+        position: static;
+        transform: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 0;
+    }
+
+    .calc-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
+
+    .judul {
+        font-size: 28px;
+        padding: 15px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .judul {
+        font-size: 30px;
+        padding: 18px 0;
+    }
+
+    /* .btn-container {
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+    } */
+}
+
+/* css payment */
+/* Main container for better alignment */
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+    border-radius: 10px;
+    /* background-color: #f9f9f9; */
+}
+
+/* Instruction text */
+.payment-instruction {
+    color: black;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* QR Code styling */
+.qr-code {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Payment Section Styling */
+.payment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.payment-label {
+    color: black;
+    font-size: 18px;
+    /* font-weight: bold; */
+    margin-bottom: 8px;
+}
+
+.payment-amount {
+    color: #000;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .payment-container {
+        padding: 15px;
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .payment-container {
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    .payment-instruction {
+        font-size: 14px;
+    }
+
+    .payment-label {
+        font-size: 16px;
+    }
+
+    .payment-amount {
+        font-size: 20px;
+    }
+}

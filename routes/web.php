@@ -10,6 +10,10 @@ Route::get('/awal', function () {
     return view('home/ugolf');
 });
 
+Route::get('/qty', function () {
+    return view('qty/index');
+});
+
 Route::get('/konfir', function () {
     return view('confirm/konfirmasi');
 });

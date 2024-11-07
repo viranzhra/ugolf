@@ -7,40 +7,31 @@
     <title>Konfirmasi</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Kufam&display=swap" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-         /* Prevent scrolling */
-         html, body {
+                /* Prevent scrolling */
+                html, body {
             margin: 0;
             padding: 0;
-            height: 100%; /* Ensures full height */
-            overflow: hidden; /* Prevent scrolling */
+            height: 100%;
+            overflow: hidden;
         }
         
-        /* Reset default styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* General styling */
         body {
             font-family: 'Kufam', sans-serif;
             background-color: white;
-            height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             align-items: center;
-            position: relative;
+            margin: 0;
         }
 
+        /* Header title styling */
         .judul {
-            width: 776px;
+            width: 100%;
+            max-width: 776px;
             height: 70px;
             background-color: #8F3581;
             color: white;
@@ -52,7 +43,64 @@
             letter-spacing: 5px;
         }
 
-        /* Posisi tombol Kembali dan Beli Tiket */
+ /* Table container styling */
+ .table-container {
+            width: 100%;
+            max-width: 634px;
+            height: 376px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 14px;
+            margin-top: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .header {
+            width: 100%;
+            height: 60px;
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
+            text-align: center;
+            background-color: #ffecfc;
+            padding: 20px;
+            color: #8F3581;
+        }
+
+        .table-container h3{
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 20.8px;
+            text-align: center;
+        }
+
+        /* Item detail styling */
+        .item-detail {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+            padding: 8px 0;
+            padding-left: 80px;
+            padding-right: 80px;
+            margin-top: 30px;
+            flex-direction: column;
+            gap: 10px;
+            color: #333;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        /* Button styling */
         .btn-container {
             position: absolute;
             bottom: 60px;
@@ -63,83 +111,128 @@
         }
 
         .btn-container button {
-            background: rgb(143, 53, 129);
-            background: linear-gradient(180deg, rgba(143, 53, 129, 0.9557072829131653) 72%, rgba(81, 13, 70, 1) 100%);
+            background: linear-gradient(180deg, rgba(143, 53, 129, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
             color: white;
-            font-size: 15px;
             padding: 10px 20px;
             border-radius: 8px;
             border: none;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            font-size: 15px;
             cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            transition: background-color 0.3s ease;
             letter-spacing: 2px;
         }
 
         .btn-container button:hover {
             background: linear-gradient(180deg, rgba(168, 55, 143, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
         }
-
-        @media (max-width: 576px) {
-            .quantity-control-wrapper {
-                flex-direction: column;
-                gap: 15px;
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .table-container {
+                width: 70%;
+                margin-top: 100px;
             }
 
-            .quantity-control-wrapper button,
-            .quantity-control-wrapper input {
-                width: 100%;
-                max-width: 300px;
+            .item-detail {
+                padding-left: 30px;
+                padding-right: 30px;
             }
 
             .btn-container {
-                position: static;
+                bottom: 20px;
                 flex-direction: column;
-                align-items: center;
-                gap: 20px;
+                gap: 15px;
+                align-items: center; /* Center the buttons vertically */
             }
 
+            .btn-container button {
+                width: 100%;
+                max-width: 300px; /* Ensure buttons don't grow too wide */
+            }
             .judul {
-                font-size: 28px;
-                padding: 15px 0;
+                width: 500px;
+                font-size: 24px;
+                padding: 15px;
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             .judul {
-                font-size: 30px;
-                padding: 18px 0;
+                width: 400px;
+                font-size: 20px;
+                padding: 10px;
             }
 
-            .btn-container {
-                right: 50px;
-                bottom: 50px;
+            .table-container {
+                width: 70%;
+                margin-top: 100px;
+            }
+
+            .item-detail {
+                font-size: 14px;
+                gap: 8px;
+            }
+            .btn-container button {
+                font-size: 14px;
+                padding: 8px 16px;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Bagian Judul (Navbar) -->
+
+    <!-- Header title -->
     <div class="judul">
         KONFIRMASI
     </div>
 
-    
+    <!-- Table container -->
+    <div class="table-container">
+        <div class="header">
+            <h3>RINCIAN PEMBELIAN</h3>
+        </div>
+        <div class="item-detail">
+            <div class="item-row">
+                <span>Jumlah Tiket</span>
+                <span>-</span>
+            </div>
+            <div class="item-row">
+                <span>Harga</span>
+                <span>-</span>
+            </div>
+            <hr>
+            <div class="item-row">
+                <span>Total Pembayaran</span>
+                <span>-</span>
+            </div>
+        </div>        
+    </div>
 
-    <!-- Tombol Kembali dan Beli Tiket -->
+    <!-- Buttons -->
     <div class="btn-container mt-4">
         <button onclick="goBack()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256"><path d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
+                <path d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z"></path>
+            </svg>
             <b>KEMBALI</b>
         </button>
         <button onclick="buyTicket()">
             <b>LANJUTKAN PEMBAYARAN</b>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256"><path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
+                <path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path>
+            </svg>
         </button>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function buyTicket() {
+            alert('Proceeding to payment...');
+        }
+    </script>
 </body>
 
 </html>

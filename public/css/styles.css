@@ -75,6 +75,13 @@ body {
     color: rgb(185, 185, 185);
 }
 
+#quantity-input:focus {
+    border-color: #8F3581;
+    background-color: var(--secondary-color);
+    outline: none; /* This removes the default focus outline, if you want a cleaner look */
+    box-shadow: 0 0 0 2px rgba(128, 0, 128, 0.3); /* Adds a subtle purple glow */
+}
+
 .angka {
     display: grid;
     grid-template-columns: repeat(3, 60px);
@@ -104,6 +111,21 @@ body {
 .zero {
     grid-column: 2;
     grid-row: 4;
+}
+
+/* Tombol Clear dan Hapus */
+.clear-btn {
+    background-color: #FFECFC;
+    color: #8F3581;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    border: 3px solid #8F3581;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background-color: #fdd6f7;
 }
 
 /* Posisi tombol Kembali dan Beli Tiket */

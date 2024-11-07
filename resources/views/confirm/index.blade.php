@@ -129,7 +129,7 @@
         @media (max-width: 768px) {
             .table-container {
                 width: 70%;
-                margin-top: 100px;
+                height: 300px;
             }
 
             .item-detail {

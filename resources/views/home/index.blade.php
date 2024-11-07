@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>Ugolf</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -55,26 +55,26 @@
         /* Floating animations */
         @keyframes floatRight {
             0%, 100% {
-                transform: translateY(0px);
+                transform: translateX(0px);
             }
-            50% {
-                transform: translateY(15px);
+            60% {
+                transform: translateX(50px);
             }
         }
 
         @keyframes floatLeft {
             0%, 100% {
-                transform: translateY(0px);
+                transform: translateX(0px);
             }
-            50% {
-                transform: translateY(-15px);
+            60% {
+                transform: translateX(-50px);
             }
         }
 
         /* Styling for the button */
         .center-button {
             width: 500px;
-            height: 126px;
+            height: 120px;
             background-color: white;
             color: #7D2B71;
             padding: 15px 30px;
@@ -89,7 +89,7 @@
         }
 
         .center-button:hover {
-            background-color: #7D2B71;
+            background-color: #e08dd3;
             color: white;
         }
 
@@ -120,8 +120,8 @@
             }
 
             .center-button {
-                width: 500px;
-                height: 160px;
+                width: 400px;
+                height: 100px;
                 font-size: 32px;
                 padding: 10px 20px;
             }
@@ -130,7 +130,7 @@
         @media (max-width: 600px) {
             .center-button {
                 width: 300px;
-                height: 110px;
+                height: 90px;
                 font-size: 32px;
                 padding: 10px 20px;
             }
@@ -179,10 +179,10 @@
             UGOLF
         </div>
         <button class="center-button">
-            <div class="button-text-container">
+            <a href="/qty" style="color: #7D2B71; text-decoration: none; " class="button-text-container">
                 <img src="{{ asset('image/Ticket.png') }}" alt="Ticket Image" class="ticket-image">
                 Beli Tiket
-            </div>
+            </a>
         </button>
     </div>
 </body>

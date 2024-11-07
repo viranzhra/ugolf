@@ -7,12 +7,17 @@ Route::get('/', function () {
 });
 
 Route::get('/awal', function () {
-    return view('home/ugolf');
+    return view('home/index');
 });
 
 Route::get('/qty', function () {
     return view('qty/index');
 });
+
+Route::get('/konfir', function () {
+    return view('confirm/index');
+});
+
 
 Route::get('/payment', function () {
     return view('payment/index');

@@ -15,6 +15,13 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* Prevent scrolling */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
 
 body {
     font-family: "Kufam", sans-serif;
@@ -192,13 +199,21 @@ body {
         height: 40px;
     }
 
-    .btn-container {
-        flex-direction: row; /* Keep the buttons in a row */
-        align-items: center; /* Ensure buttons are aligned */
-        gap: 15px; /* Add some space between buttons */
-        padding: 0;
-    }
+    .btn-container button {
+            background: linear-gradient(180deg, rgba(143, 53, 129, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            letter-spacing: 2px;
+        }
 
+        .btn-container button:hover {
+            background: linear-gradient(180deg, rgba(168, 55, 143, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
+        }
     .calc-btn {
         width: 50px;
         height: 50px;
@@ -223,10 +238,21 @@ body {
         height: 45px;
         font-size: 16px;
     }
+    .btn-container {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center;
+    }
+
+    .btn-container button {
+        font-size: 14px;
+        padding: 8px 16px;
+        max-width: 300px; /* Prevent the buttons from growing too wide */
+        width: 100%;
+    }
 }
 
 /* Responsive Styles */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     /* .quantity-control-wrapper {
         flex-direction: column;
         gap: 15px;
@@ -239,12 +265,15 @@ body {
     } */
 
     .btn-container {
-        position: static;
-        transform: none;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        padding: 0;
+        flex-direction: row; /* Align buttons side-by-side */
+        justify-content: space-between;
+        width: 75%;
+    }
+
+    .btn-container button {
+        flex: 1; /* Let the buttons take equal width */
+        margin: 5px; /* Add some spacing between buttons */
+        margin-bottom: 300px;
     }
 
     .calc-btn {

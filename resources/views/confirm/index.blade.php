@@ -138,17 +138,18 @@
             }
 
             .btn-container {
-                bottom: 20px;
-                flex-direction: column;
-                gap: 15px;
-                align-items: center; /* Center the buttons vertically */
-            }
+            flex-direction: row; /* Align buttons side-by-side */
+            justify-content: space-between;
+            width: 75%;
+        }
 
-            .btn-container button {
-                width: 100%;
-                max-width: 300px; /* Ensure buttons don't grow too wide */
-            }
-            .judul {
+        .btn-container button {
+            flex: 1; /* Let the buttons take equal width */
+            margin: 5px; /* Add some spacing between buttons */
+            margin-bottom: 300px;
+        }
+
+        .judul {
                 width: 500px;
                 font-size: 24px;
                 padding: 15px;
@@ -171,10 +172,18 @@
                 font-size: 14px;
                 gap: 8px;
             }
-            .btn-container button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
+
+            .btn-container {
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center;
+        }
+
+        .btn-container button {
+            font-size: 14px;
+            padding: 8px 16px;
+            max-width: 300px; /* Prevent the buttons from growing too wide */
+            width: 100%;
+        }
         }
     </style>
 </head>

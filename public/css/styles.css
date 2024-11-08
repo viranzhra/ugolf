@@ -283,15 +283,18 @@ body {
     }
 
     .judul {
-        font-size: 28px;
-        padding: 15px 0;
+        width: 500px;
+        font-size: 24px;
+        padding: 15px;
     }
+    
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
     .judul {
-        font-size: 30px;
-        padding: 18px 0;
+        width: 400px;
+        font-size: 20px;
+        padding: 10px;
     }
 
     /* .btn-container {

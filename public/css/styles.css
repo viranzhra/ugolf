@@ -165,6 +165,26 @@ body {
     letter-spacing: 2px;
 }
 
+.btn-container a {
+    background: rgb(143, 53, 129);
+    background: linear-gradient(
+        180deg,
+        rgba(143, 53, 129, 0.9557072829131653) 72%,
+        rgba(81, 13, 70, 1) 100%
+    );
+    color: white;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    letter-spacing: 2px;
+}
+
 .btn-container button:hover {
     background: linear-gradient(
         180deg,

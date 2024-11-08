@@ -122,6 +122,18 @@
             letter-spacing: 2px;
         }
 
+        .btn-container a {
+            background: linear-gradient(180deg, rgba(143, 53, 129, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            letter-spacing: 2px;
+        }
+
         .btn-container button:hover {
             background: linear-gradient(180deg, rgba(168, 55, 143, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
         }
@@ -225,12 +237,18 @@
             </svg>
             <b>KEMBALI</b>
         </button>
-        <button onclick="buyTicket()">
+        {{-- <button onclick="buyTicket()">
             <b>LANJUTKAN PEMBAYARAN</b>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
                 <path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path>
             </svg>
-        </button>
+        </button> --}}
+        <a href="/payment" style="text-decoration: none;">
+            <b>LANJUTKAN PEMBAYARAN</b>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
+                <path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path>
+            </svg>
+        </a>
     </div>
 
     <script>
@@ -238,9 +256,9 @@
             window.history.back();
         }
 
-        function buyTicket() {
-            alert('Proceeding to payment...');
-        }
+        // function buyTicket() {
+        //     alert('Proceeding to payment...');
+        // }
     </script>
 </body>
 

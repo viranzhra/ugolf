@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\QtyController;
+// use App\Http\Controllers\qtyController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,3 +28,7 @@ Route::get('/payment', function () {
 Route::get('/done', function () {
     return view('done/index');
 });
+
+// Route::get('/qty', [qtyController::class, 'index'])->name('qty.index');
+// Route::post('/qty/confirm', [qtyController::class, 'confirm'])->name('qty.confirm');
+// Route::get('/qty', [QtyController::class, 'index']);

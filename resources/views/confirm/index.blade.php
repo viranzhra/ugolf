@@ -8,10 +8,9 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kufam&display=swap" rel="stylesheet">
-
     <style>
-                /* Prevent scrolling */
-                html, body {
+        /* Prevent scrolling */
+        html, body {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -43,8 +42,8 @@
             letter-spacing: 5px;
         }
 
- /* Table container styling */
- .table-container {
+        /* Table container styling */
+        .table-container {
             width: 100%;
             max-width: 634px;
             height: 376px;
@@ -69,7 +68,7 @@
             color: #8F3581;
         }
 
-        .table-container h3{
+        .table-container h3 {
             font-size: 16px;
             font-weight: 600;
             line-height: 20.8px;
@@ -110,18 +109,7 @@
             flex-wrap: wrap;
         }
 
-        .btn-container button {
-            background: linear-gradient(180deg, rgba(143, 53, 129, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            letter-spacing: 2px;
-        }
-
+        .btn-container button,
         .btn-container a {
             background: linear-gradient(180deg, rgba(143, 53, 129, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
             color: white;
@@ -132,11 +120,85 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             letter-spacing: 2px;
+            text-decoration: none;
         }
 
-        .btn-container button:hover {
+        .btn-container button:hover,
+        .btn-container a:hover {
             background: linear-gradient(180deg, rgba(168, 55, 143, 0.95) 72%, rgba(81, 13, 70, 1) 100%);
         }
+
+        /* Custom modal backdrop */
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Custom modal container */
+.modal-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal-container h3 {
+    font-size: 20px;
+    color: #8F3581;
+    margin-bottom: 15px;
+}
+
+.modal-container p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Modal buttons */
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.modal-buttons .confirm-btn {
+    background-color: #8F3581;
+}
+
+.modal-buttons .confirm-btn:hover {
+    background-color: #A8378F;
+}
+
+.modal-buttons .cancel-btn {
+    background-color: #888;
+}
+
+.modal-buttons .cancel-btn:hover {
+    background-color: #666;
+}
+
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .table-container {
@@ -150,18 +212,17 @@
             }
 
             .btn-container {
-            flex-direction: row; /* Align buttons side-by-side */
-            justify-content: space-between;
-            width: 75%;
-        }
+                flex-direction: row; /* Align buttons side-by-side */
+                justify-content: space-between;
+                width: 75%;
+            }
 
-        .btn-container button {
-            flex: 1; /* Let the buttons take equal width */
-            margin: 5px; /* Add some spacing between buttons */
-            margin-bottom: 300px;
-        }
+            .btn-container button, .btn-container a {
+                flex: 1; /* Let the buttons take equal width */
+                margin: 5px; /* Add some spacing between buttons */
+            }
 
-        .judul {
+            .judul {
                 width: 500px;
                 font-size: 24px;
                 padding: 15px;
@@ -186,16 +247,16 @@
             }
 
             .btn-container {
-            flex-direction: column; /* Stack buttons vertically */
-            align-items: center;
-        }
+                flex-direction: column; /* Stack buttons vertically */
+                align-items: center;
+            }
 
-        .btn-container button {
-            font-size: 14px;
-            padding: 8px 16px;
-            max-width: 300px; /* Prevent the buttons from growing too wide */
-            width: 100%;
-        }
+            .btn-container button, .btn-container a {
+                font-size: 14px;
+                padding: 8px 16px;
+                max-width: 300px; /* Prevent the buttons from growing too wide */
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -237,13 +298,7 @@
             </svg>
             <b>KEMBALI</b>
         </button>
-        {{-- <button onclick="buyTicket()">
-            <b>LANJUTKAN PEMBAYARAN</b>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
-                <path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path>
-            </svg>
-        </button> --}}
-        <a href="/payment" style="text-decoration: none;">
+        <a href="#" onclick="confirmPayment(event)">
             <b>LANJUTKAN PEMBAYARAN</b>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
                 <path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path>
@@ -251,14 +306,44 @@
         </a>
     </div>
 
+        <!-- Custom Confirmation Alert Modal -->
+    <div class="modal-backdrop" id="confirmModal">
+        <div class="modal-container">
+            <h3>Konfirmasi Pembayaran</h3>
+            <p>Apakah pesanan Anda sudah benar?</p>
+            <div class="modal-buttons">
+                <button class="confirm-btn" onclick="proceedToPayment()">Ya</button>
+                <button class="cancel-btn" onclick="closeModal()">Tidak</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function goBack() {
             window.history.back();
         }
 
-        // function buyTicket() {
-        //     alert('Proceeding to payment...');
-        // }
+        function confirmPayment(event) {
+            event.preventDefault();
+            if (confirm("Apakah pesanan Anda sudah benar?")) {
+                window.location.href = "/payment";
+            }
+        }
+
+        function confirmPayment(event) {
+    event.preventDefault();
+    document.getElementById("confirmModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("confirmModal").style.display = "none";
+}
+
+function proceedToPayment() {
+    closeModal();
+    window.location.href = "/payment";
+}
+
     </script>
 </body>
 

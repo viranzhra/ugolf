@@ -165,6 +165,15 @@
     margin-bottom: 20px;
 }
 
+.modal-item-details {
+    padding-left: 40px;
+    padding-right: 40px;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
 /* Modal buttons */
 .modal-buttons {
     display: flex;
@@ -175,19 +184,22 @@
 .modal-buttons button {
     padding: 10px 20px;
     font-size: 14px;
+    font-weight: bold;
     border: none;
-    border-radius: 5px;
+    font-family: 'Kufam', sans-serif;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     color: white;
+    margin-top: 60px;
 }
 
 .modal-buttons .confirm-btn {
-    background-color: #8F3581;
+    background-color: #ce52bc;
 }
 
 .modal-buttons .confirm-btn:hover {
-    background-color: #A8378F;
+    background-color: #8F3581;
 }
 
 .modal-buttons .cancel-btn {
@@ -306,17 +318,32 @@
         </a>
     </div>
 
-        <!-- Custom Confirmation Alert Modal -->
-    <div class="modal-backdrop" id="confirmModal">
-        <div class="modal-container">
-            <h3>Konfirmasi Pembayaran</h3>
-            <p>Apakah pesanan Anda sudah benar?</p>
-            <div class="modal-buttons">
-                <button class="confirm-btn" onclick="proceedToPayment()">Ya</button>
-                <button class="cancel-btn" onclick="closeModal()">Tidak</button>
+<!-- Custom Confirmation Alert Modal -->
+<div class="modal-backdrop" id="confirmModal">
+    <div class="modal-container">
+        <h3>Konfirmasi Pembayaran</h3>
+        <p>Apakah pesanan Anda sudah benar?</p>
+        <div class="modal-item-details">
+            <div class="item-row">
+                <span>Jumlah Tiket:</span>
+                <span id="modalJumlahTiket">-</span>
+            </div>
+            <div class="item-row">
+                <span>Harga:</span>
+                <span id="modalHarga">-</span>
+            </div>
+            <hr>
+            <div class="item-row">
+                <span>Total Pembayaran:</span>
+                <span id="modalTotalPembayaran">-</span>
             </div>
         </div>
+        <div class="modal-buttons">
+            <button class="confirm-btn" onclick="proceedToPayment()">Ya</button>
+            <button class="cancel-btn" onclick="closeModal()">Tidak</button>
+        </div>
     </div>
+</div>
 
     <script>
         function goBack() {

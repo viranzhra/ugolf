@@ -29,6 +29,13 @@ Route::get('/done', function () {
     return view('done/index');
 });
 
+Route::get('/coba', function () {
+    return view('coba_ping');
+});
+
+Route::get('/cek', function () {
+    return view('cekping');
+});
 // Route::get('/qty', [qtyController::class, 'index'])->name('qty.index');
 // Route::post('/qty/confirm', [qtyController::class, 'confirm'])->name('qty.confirm');
 // Route::get('/qty', [QtyController::class, 'index']);

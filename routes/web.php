@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\QtyController;
-// use App\Http\Controllers\qtyController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\ConfirmController; // Tambahkan import ConfirmController
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,15 +12,14 @@ Route::get('/awal', function () {
     return view('home/index');
 });
 
-Route::get('/qty', function () {
-    return view('qty/index');
-});
+// Rute untuk halaman input jumlah tiket (qty)
+Route::get('/qty', [TicketController::class, 'index'])->name('qty.index');
+Route::post('/qty', [TicketController::class, 'store'])->name('qty.store');
 
-Route::get('/konfir', function () {
-    return view('confirm/index');
-});
+// Rute untuk halaman konfirmasi jumlah tiket
+Route::get('/konfir', [ConfirmController::class, 'index'])->name('confirm.index'); // Pastikan rute ini mengarah ke ConfirmController
 
-
+// Rute lainnya
 Route::get('/payment', function () {
     return view('payment/index');
 });
@@ -36,6 +35,3 @@ Route::get('/coba', function () {
 Route::get('/cek', function () {
     return view('cekping');
 });
-// Route::get('/qty', [qtyController::class, 'index'])->name('qty.index');
-// Route::post('/qty/confirm', [qtyController::class, 'confirm'])->name('qty.confirm');
-// Route::get('/qty', [QtyController::class, 'index']);

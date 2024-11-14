@@ -8,6 +8,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/request', function () {
+    return view('file Request/index');
+});
+
+
 Route::get('/awal', function () {
     return view('home/index');
 });

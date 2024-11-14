@@ -282,11 +282,8 @@
 </head>
 
 <body>
-
     <!-- Header title -->
-    <div class="judul">
-        KONFIRMASI
-    </div>
+    <div class="judul">KONFIRMASI</div>
 
     <!-- Table container -->
     <div class="table-container">
@@ -296,16 +293,16 @@
         <div class="item-detail">
             <div class="item-row">
                 <span>Jumlah Tiket</span>
-                <span id="ticket-quantity">{{ session('quantity', 0) }}</span>
+                <span id="source-ticket-quantity">{{ session('quantity', 0) }}</span>
             </div>
             <div class="item-row">
                 <span>Harga</span>
-                <span id="modalHarga">-</span>
+                <span id="source-harga">-</span>
             </div>
             <hr>
             <div class="item-row">
                 <span>Total Pembayaran</span>
-                <span id="modalTotalPembayaran">-</span>
+                <span id="source-total-pembayaran">-</span>
             </div>
         </div>
     </div>
@@ -313,43 +310,31 @@
     <!-- Buttons -->
     <div class="btn-container mt-4">
         <button onclick="goBack()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
-                <path
-                    d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z">
-                </path>
-            </svg>
             <b>KEMBALI</b>
         </button>
-        {{-- <a href="/payment" onclick="confirmPayment(event)"> --}}
-        <a href="/payment">
+        <a href="/payment" onclick="confirmPayment(event)">
             <b>LANJUTKAN PEMBAYARAN</b>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
-                <path
-                    d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z">
-                </path>
-            </svg>
         </a>
     </div>
 
     <!-- Custom Confirmation Alert Modal -->
-    {{-- <div class="modal-backdrop" id="confirmModal">
+    <div class="modal-backdrop" id="confirmModal" style="display: none;">
         <div class="modal-container">
             <h3>Konfirmasi Pembayaran</h3>
             <p>Apakah pesanan Anda sudah benar?</p>
             <div class="modal-item-details">
                 <div class="item-row">
                     <span>Jumlah Tiket:</span>
-                    <span id="ticket-quantity">-</span>
-                    <span id="ticket-quantity">{{ session('quantity', 0) }}</span>
+                    <span id="modal-ticket-quantity">-</span>
                 </div>
                 <div class="item-row">
                     <span>Harga:</span>
-                    <span id="modalHarga">-</span>
+                    <span id="modal-harga">-</span>
                 </div>
                 <hr>
                 <div class="item-row">
                     <span>Total Pembayaran:</span>
-                    <span id="modalTotalPembayaran">-</span>
+                    <span id="modal-total-pembayaran">-</span>
                 </div>
             </div>
             <div class="modal-buttons">
@@ -357,84 +342,80 @@
                 <button class="cancel-btn" onclick="closeModal()">Tidak</button>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Mengambil jumlah tiket dari localStorage atau sesi
+            // Ambil jumlah tiket dari session atau localStorage
             const ticketQuantity = localStorage.getItem('ticketQuantity') || "{{ session('quantity', 0) }}";
-            document.getElementById('ticket-quantity').textContent = ticketQuantity;
-        
-            // Melakukan request ke API untuk mendapatkan data harga
+            document.getElementById('source-ticket-quantity').textContent = ticketQuantity;
+
+            // Fetch harga dari API dan tampilkan di rincian pembelian
             fetch('http://192.168.43.138/api/cms')
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Gagal mengakses API');
-                    }
-                    return response.json(); // Mengubah respon menjadi JSON
+                    if (!response.ok) throw new Error('Gagal mengakses API');
+                    return response.json();
                 })
                 .then(data => {
-                    // Memeriksa apakah data yang diterima berisi array dan mencari item dengan cms_code === 1
-                    const hargaData = Array.isArray(data.data) ? data.data.find(item => item.cms_code === 1) : null;
-        
+                    const hargaData = data.data.find(item => item.cms_code === 1);
                     if (hargaData) {
-                        const harga = parseFloat(hargaData.cms_value); // Mengonversi harga ke angka
-        
-                        // Menampilkan harga dalam format "Jumlah Tiket x Harga"
-                        document.getElementById('modalHarga').textContent = `${ticketQuantity} x ${harga.toLocaleString()}`;
-        
-                        // Menghitung total pembayaran
+                        const harga = parseFloat(hargaData.cms_value);
+
+                        // Format tampilan harga sebagai "Jumlah Tiket x Harga per Tiket"
+                        document.getElementById('source-harga').textContent =
+                            `${ticketQuantity} x ${harga.toLocaleString()}`;
+
+                        // Hitung dan tampilkan total pembayaran
                         const totalPembayaran = harga * ticketQuantity;
-                        document.getElementById('modalTotalPembayaran').textContent = totalPembayaran.toLocaleString(); // Format dengan pemisah ribuan
-                    } else {
-                        document.getElementById('modalHarga').textContent = 'Harga tidak ditemukan';
-                        document.getElementById('modalTotalPembayaran').textContent = '-';
+                        document.getElementById('source-total-pembayaran').textContent = totalPembayaran
+                            .toLocaleString();
                     }
                 })
                 .catch(error => {
                     console.error('Terjadi kesalahan:', error);
-                    document.getElementById('modalHarga').textContent = 'Gagal mengambil harga';
-                    document.getElementById('modalTotalPembayaran').textContent = '-';
+                    document.getElementById('source-harga').textContent = 'Gagal mengambil harga';
+                    document.getElementById('source-total-pembayaran').textContent = '-';
                 });
         });
-        </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    const ticketQuantity = localStorage.getItem('ticketQuantity');
-    if (ticketQuantity) {
-        document.getElementById('ticket-quantity').textContent = ticketQuantity;
-    } else {
-        document.getElementById('ticket-quantity').textContent = "{{ session('quantity', 0) }}";
-    }
-});
+        function confirmPayment(event) {
+            event.preventDefault();
 
+            // Ambil data dari elemen rincian pembelian
+            const ticketQuantity = document.getElementById('source-ticket-quantity').textContent;
+            const harga = document.getElementById('source-harga').textContent;
+            const totalPembayaran = document.getElementById('source-total-pembayaran').textContent;
+
+            // Tampilkan data di dalam modal konfirmasi
+            document.getElementById('modal-ticket-quantity').textContent = ticketQuantity;
+            document.getElementById('modal-harga').textContent = harga;
+            document.getElementById('modal-total-pembayaran').textContent = totalPembayaran;
+
+            // Tampilkan modal
+            document.getElementById('confirmModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+        }
+
+        function proceedToPayment() {
+            // Close modal
+            closeModal();
+
+            // Store total payment in localStorage
+            const totalPembayaran = document.getElementById('source-total-pembayaran').textContent;
+            localStorage.setItem('totalPembayaran', totalPembayaran);
+
+            // Redirect to payment page
+            window.location.href = "/payment";
+        }
 
         function goBack() {
             window.history.back();
         }
-
-        function confirmPayment(event) {
-            event.preventDefault();
-            if (confirm("Apakah pesanan Anda sudah benar?")) {
-                window.location.href = "/payment";
-            }
-        }
-
-        function confirmPayment(event) {
-            event.preventDefault();
-            document.getElementById("confirmModal").style.display = "flex";
-        }
-
-        function closeModal() {
-            document.getElementById("confirmModal").style.display = "none";
-        }
-
-        function proceedToPayment() {
-            closeModal();
-            window.location.href = "/payment";
-        }
     </script>
 </body>
+
 
 </html>

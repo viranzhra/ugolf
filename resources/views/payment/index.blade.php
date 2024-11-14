@@ -23,8 +23,23 @@
             align-items: center;
             position: relative;
         }
+
+        .payment-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            margin: 20px 0;
+        }
+
+        .payment-amount {
+            font-size: 1.5rem;
+            color: #000;
+        }
     </style>
-    
 </head>
 
 <body>
@@ -38,10 +53,23 @@
         <img src="image/QR Code.svg" alt="QR Code" class="qr-code">
         <div class="payment-section">
             <p class="payment-label">Jumlah Pembayaran</p>
-            <b class="payment-amount">Rp 100.000</b>
+            <b class="payment-amount" id="display-total-pembayaran">-</b>
         </div>
-    </div>       
+    </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve the total payment amount from localStorage
+            const totalPembayaran = localStorage.getItem('totalPembayaran');
+
+            // Check if totalPembayaran exists and display it
+            if (totalPembayaran) {
+                document.getElementById('display-total-pembayaran').textContent = 'Rp ' + totalPembayaran;
+            } else {
+                document.getElementById('display-total-pembayaran').textContent = 'Data tidak tersedia';
+            }
+        });
+    </script>
 </body>
 
 </html>

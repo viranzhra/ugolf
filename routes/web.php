@@ -11,7 +11,7 @@ Route::post('/tiket/pembayaran', [BeliTiketController::class, 'processTicketPurc
 Route::post('/tiket/sukses', [BeliTiketController::class, 'sukses'])->name('sukses');
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/awal');
 });
 
 Route::get('/awal', function () {

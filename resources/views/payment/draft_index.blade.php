@@ -37,7 +37,7 @@
 
     <div class="payment-container">
         <p class="payment-instruction">Scan QR untuk melakukan pembayaran</p>
-        <div class="d-flex justify-content-center mt-3">
+        <div id="qris_pict" class="d-flex justify-content-center mt-3">
             {!! QrCode::size(200)->generate($qrisData['rawQRIS']) !!}
         </div>
         <div class="payment-section">
@@ -47,13 +47,14 @@
 
         <p class="mt-2"><strong>Expire:</strong> <span id="expire" class="fw-bold">{{ $expireSeconds }}</span> detik</p>
 
-        <div class="d-grid gap-2">
-            <button id="check-status-btn" class="btn btn-primary mt-3">Cek Status Transaksi</button>
-        </div>
-
-        <div class="mt-4 text-center" id="status-result">
+        <div class="mt-2 text-center" id="status-result">
             <p><strong>Status Transaksi:</strong> <span id="transaction-status"></span></p>
         </div>
+
+        <div class="d-grid gap-2 btn-container" style="position: relative;bottom: 0;right: 0;">
+            <button id="check-status-btn" class="mt-3">Cek Status Transaksi</button>
+        </div>
+
     </div>       
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -74,7 +75,9 @@
             
             function checkStatus() {
                 checkStatusBtn.disabled = true;
-                checkStatusBtn.textContent = "Memeriksa...";
+                if(checkStatusBtn.textContent === "Cek Status Transaksi") {
+                    checkStatusBtn.textContent = "Memeriksa...";
+                }
 
                 axios.post(`{{ env('API_URL') }}/qris/check-status`, {
                     trxId: "{{ $qrisData['trxID'] }}",
@@ -93,6 +96,13 @@
 
                     checkStatusBtn.disabled = false;
                     checkStatusBtn.textContent = "Cek Status Transaksi";
+
+                    if (response.data.ack === '08') {
+                        qris_pict.innerHTML = '<img src="{{ asset('image/broken.png') }}" alt="QR Code Exp" width="150" height="150">';
+                        document.querySelector('.btn-container').style = "";
+                        checkStatusBtn.addEventListener('click', function() {window.location.href = "{{ route('qty.index') }}";});
+                        checkStatusBtn.textContent = "Kembali";
+                    }
                 })
                 .catch(error => {
                     console.error('Transaction status:', error.response?.data?.message || 'Transaction not found');

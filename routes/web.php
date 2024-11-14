@@ -1,8 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BeliTiketController;
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\ConfirmController; // Tambahkan import ConfirmController
+use App\Http\Controllers\ConfirmController;
+
+Route::get('/tiket', [BeliTiketController::class, 'index']);
+Route::post('/tiket/konfirmasi', [BeliTiketController::class, 'konfirmasi'])->name('konfirmasi');
+Route::post('/tiket/pembayaran', [BeliTiketController::class, 'processTicketPurchase'])->name('process_ticket_purchase');
+Route::post('/tiket/sukses', [BeliTiketController::class, 'sukses'])->name('sukses');
 
 Route::get('/', function () {
     return view('welcome');

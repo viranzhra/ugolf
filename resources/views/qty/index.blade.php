@@ -88,8 +88,8 @@
                     </path>
                 </svg>
             </button>
-            <input type="text" id="quantity-input" class="form-control text-center" readonly required
-                placeholder="Jumlah" oninput="toggleButton()">
+            <input type="number" id="quantity-input" class="form-control text-center" readonly required
+                placeholder="Jumlah" oninput="toggleButton()" style="-webkit-appearance: none; -moz-appearance: textfield;">
             <button style="background: white;" type="button" id="increment-button" onclick="increment()">
                 <svg style="background: white;" xmlns="http://www.w3.org/2000/svg" width="44" height="44"
                     fill="#fca613" viewBox="0 0 256 256">
@@ -102,7 +102,7 @@
     </div>
 
     <!-- Kontrol Angka dan Tombol -->
-    <div class="container mt-5">
+    <div class="container mt-2">
         <div class="angka">
             <button class="calc-btn" onclick="appendNumber(1)">1</button>
             <button class="calc-btn" onclick="appendNumber(2)">2</button>
@@ -119,27 +119,34 @@
         </div>
     </div>
 
-    <!-- Tombol Kembali dan Beli Tiket -->
-    <div class="btn-container mt-4">
-        <button onclick="goBack()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
-                <path
-                    d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z">
-                </path>
-            </svg>
-            <b>KEMBALI</b>
-        </button>
+    <!-- Form untuk Beli Tiket -->
+    <form action="{{ route('konfirmasi') }}" method="POST" onsubmit="return validateQuantity()">
+        @csrf
+        <!-- Input Hidden untuk qty -->
+        <input type="hidden" id="hidden-qty" name="qty">
+        
+        <div class="btn-container mt-4">
+            <!-- Tombol Kembali -->
+            <button type="button" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
+                    <path
+                        d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z">
+                    </path>
+                </svg>
+                <b>KEMBALI</b>
+            </button>
 
-        <a href="/konfir" style="text-decoration: none;" id="buy-ticket-btn" class="disabled"
-            onclick="return validateQuantity()">
-            <b>BELI TIKET</b>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
-                <path
-                    d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z">
-                </path>
-            </svg>
-        </a>
-    </div>
+            <!-- Tombol Beli Tiket -->
+            <button type="submit" id="buy-ticket-btn" class="disabled">
+                <b>BELI TIKET</b>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
+                    <path
+                        d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </form>
 
     <!-- Custom Alert Box -->
     <div class="custom-alert" id="custom-alert">
@@ -201,11 +208,16 @@
 
         function validateQuantity() {
             const quantityInput = document.getElementById('quantity-input');
+            const hiddenQtyInput = document.getElementById('hidden-qty');
+
             if (!quantityInput.value || parseInt(quantityInput.value) <= 0) {
                 showAlert();
                 return false;
             }
-            // Save the quantity to localStorage before proceeding
+
+            // Transfer value dari quantity-input ke hidden-qty
+            hiddenQtyInput.value = quantityInput.value;
+
             localStorage.setItem('ticketQuantity', quantityInput.value);
             return true;
         }
@@ -219,5 +231,6 @@
         }
     </script>
 </body>
+
 
 </html>

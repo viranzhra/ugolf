@@ -339,7 +339,11 @@
                 </div>
             </div>
             <div class="modal-buttons">
-                <button class="confirm-btn" onclick="proceedToPayment()">Ya</button>
+                <form id="paymentForm" action="{{ route('process_ticket_purchase') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="qty" id="hidden-ticket-quantity">
+                    <button type="submit" class="confirm-btn">Ya</button>
+                </form>
                 <button class="cancel-btn" onclick="closeModal()">Tidak</button>
             </div>
         </div>
@@ -381,18 +385,15 @@
 
         function confirmPayment(event) {
             event.preventDefault();
-
-            // Ambil data dari elemen rincian pembelian
             const ticketQuantity = document.getElementById('source-ticket-quantity').textContent;
             const harga = document.getElementById('source-harga').textContent;
             const totalPembayaran = document.getElementById('source-total-pembayaran').textContent;
 
-            // Tampilkan data di dalam modal konfirmasi
             document.getElementById('modal-ticket-quantity').textContent = ticketQuantity;
             document.getElementById('modal-harga').textContent = harga;
             document.getElementById('modal-total-pembayaran').textContent = totalPembayaran;
 
-            // Tampilkan modal
+            document.getElementById('hidden-ticket-quantity').value = ticketQuantity;
             document.getElementById('confirmModal').style.display = 'flex';
         }
 

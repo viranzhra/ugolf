@@ -76,6 +76,12 @@
 
     <script>
         $(document).ready(function() {
+            // Check if the initialization is already done
+            if (localStorage.getItem('initialized') === 'true') {
+                // Redirect to home page
+                window.location.href = '/awal';
+            }
+
             $('#initForm').on('submit', function(event) {
                 event.preventDefault();
 
@@ -93,7 +99,12 @@
                         if (response.status) {
                             alertBox.removeClass('d-none alert-danger').addClass('alert-success')
                                      .text(response.message);
-                            alert('Device initialization successful! Price: ' + response.data.price);
+
+                            // Set initialization flag in local storage
+                            localStorage.setItem('initialized', 'true');
+
+                            // Redirect to the home page (index.html) on success
+                            window.location.href = '/awal';
                         } else {
                             alertBox.removeClass('d-none alert-success').addClass('alert-danger')
                                      .text(response.message + ' (Code: ' + response.code + ')');
@@ -106,6 +117,6 @@
                 });
             });
         });
-    </script>
+    </script>    
 </body>
 </html>

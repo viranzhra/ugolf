@@ -374,7 +374,7 @@
                 })
                 .catch(error => {
                     console.error('Terjadi kesalahan:', error);
-                    document.getElementById('source-harga').textContent = 'Gagal mengambil harga';
+                    document.getElementById('source-harga').textContent = '-';
                     document.getElementById('source-total-pembayaran').textContent = '-';
                 });
         });

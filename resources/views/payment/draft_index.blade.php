@@ -37,8 +37,13 @@
 
     <div class="payment-container">
         <p class="payment-instruction">Scan QR untuk melakukan pembayaran</p>
-        <div id="qris_pict" class="d-flex justify-content-center mt-3">
-            {!! QrCode::size(200)->generate($qrisData['rawQRIS']) !!}
+        <div class="d-flex justify-content-center mt-3">
+            <div id="qris_code">
+                {!! QrCode::size(200)->generate($qrisData['rawQRIS']) !!}
+            </div>
+            <div id="qris_pict" style="display: none">
+                <img src="{{ asset('image/broken.png') }}" alt="QR Code Exp" width="150" height="150">
+            </div>
         </div>
         <div class="payment-section">
             <p class="payment-label">Jumlah Pembayaran</p>
@@ -47,12 +52,12 @@
 
         <p class="mt-2"><strong>Expire:</strong> <span id="expire" class="fw-bold">{{ $expireSeconds }}</span> detik</p>
 
-        <div class="mt-2 text-center" id="status-result">
-            <p><strong>Status Transaksi:</strong> <span id="transaction-status"></span></p>
+        <div class="mt-2 text-center">
+            <p><strong><span id="transaction-status"></span></strong></p>
         </div>
 
         <div class="d-grid gap-2 btn-container" style="position: relative;bottom: 0;right: 0;">
-            <button id="check-status-btn" class="mt-3">Cek Status Transaksi</button>
+            <button id="check-status-btn" class="mt-3"><svg id="svgBack" style="display:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256"><path d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z"></path></svg><b id="name-status-btn">Cek Status Transaksi</b></button>
         </div>
 
     </div>       
@@ -72,11 +77,13 @@
             }, 1000);
 
             const checkStatusBtn = document.getElementById('check-status-btn');
+            const nameStatusBtn = document.getElementById('name-status-btn');
+            const svgIconBack = document.getElementById('svgBack');
             
             function checkStatus() {
                 checkStatusBtn.disabled = true;
-                if(checkStatusBtn.textContent === "Cek Status Transaksi") {
-                    checkStatusBtn.textContent = "Memeriksa...";
+                if(nameStatusBtn.textContent === "Cek Status Transaksi") {
+                    nameStatusBtn.textContent = "Memeriksa...";
                 }
 
                 axios.post(`{{ env('API_URL') }}/qris/check-status`, {
@@ -95,13 +102,15 @@
                     }
 
                     checkStatusBtn.disabled = false;
-                    checkStatusBtn.textContent = "Cek Status Transaksi";
+                    nameStatusBtn.textContent = "Cek Status Transaksi";
 
                     if (response.data.ack === '08') {
-                        qris_pict.innerHTML = '<img src="{{ asset('image/broken.png') }}" alt="QR Code Exp" width="150" height="150">';
+                        qris_pict.style.display = 'flex';
+                        qris_code.style.display = 'none';
                         document.querySelector('.btn-container').style = "";
+                        svgIconBack.style.display = 'block';
                         checkStatusBtn.addEventListener('click', function() {window.location.href = "{{ route('qty.index') }}";});
-                        checkStatusBtn.textContent = "Kembali";
+                        nameStatusBtn.textContent = "Kembali";
                     }
                 })
                 .catch(error => {
@@ -109,7 +118,12 @@
                     document.getElementById("transaction-status").innerText = "Gagal memeriksa status";
 
                     checkStatusBtn.disabled = false;
-                    checkStatusBtn.textContent = "Cek Status Transaksi";
+                    qris_pict.style.display = 'flex';
+                    qris_code.style.display = 'none';
+                    document.querySelector('.btn-container').style = "";
+                    svgIconBack.style.display = 'block';
+                    checkStatusBtn.addEventListener('click', function() {window.location.href = "{{ route('qty.index') }}";});
+                    nameStatusBtn.textContent = "Kembali";
                 });
             }
 

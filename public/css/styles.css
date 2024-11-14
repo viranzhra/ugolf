@@ -76,6 +76,7 @@ body {
     color: var(--primary-color);
     font-weight: bold;
     outline: none;
+    padding-left: 25px;
 }
 
 #quantity-input::placeholder {

@@ -27,6 +27,16 @@ class BeliTiketController extends Controller
         return view('qty.index');
     }
 
+    public function konfirmasi(Request $request)
+    {
+        $request->validate([
+            'qty' => 'required|integer|min:1'
+        ]);
+
+        $qty = $request->qty;
+        return view('confirm.index', compact('qty'));
+    }
+
     // public function showTicketForm()
     // {
     //     // Halaman input jumlah tiket
@@ -62,7 +72,7 @@ class BeliTiketController extends Controller
             if ($responseData['success']) {
                 $data = $responseData['data'];
                 $transaction = $responseData['transaction'];
-                return view('payment/index', [
+                return view('payment/draft_index', [
                     'qrisData' => $data,
                     'transaction' => $transaction,
                 ]);
@@ -73,6 +83,16 @@ class BeliTiketController extends Controller
         }
 
         return back()->withErrors('Gagal membuat QRIS. Silakan coba lagi.');
+    }
+
+    public function sukses(Request $request)
+    {
+        $request->validate([
+            'qty' => 'required|integer|min:1'
+        ]);
+
+        $qty = $request->qty;
+        return view('done.index', compact('qty'));
     }
 
     public function showQRIS($trx_id)

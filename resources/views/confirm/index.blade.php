@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Konfirmasi</title>
     <link rel="stylesheet" href="styles.css">
@@ -407,8 +408,27 @@
             const totalPembayaran = document.getElementById('source-total-pembayaran').textContent;
             localStorage.setItem('totalPembayaran', totalPembayaran);
 
-            // Redirect to payment page
-            window.location.href = "/payment";
+            const ticketQuantity = document.getElementById('source-ticket-quantity').textContent;
+
+            // Create form and submit POST request
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `{{ route('process_ticket_purchase') }}`;
+
+            const qtyInput = document.createElement('input');
+            qtyInput.type = 'hidden';
+            qtyInput.name = 'qty';
+            qtyInput.value = parseInt(ticketQuantity);
+
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            form.appendChild(qtyInput);
+            form.appendChild(csrfToken);
+            document.body.appendChild(form);
+            form.submit();
         }
 
         function goBack() {

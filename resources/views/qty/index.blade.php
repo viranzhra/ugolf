@@ -20,8 +20,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
-            z-index: 1000; /* Ensure it appears on top */
+            background-color: rgba(0, 0, 0, 0.6);
+            /* Dark overlay */
+            z-index: 1000;
+            /* Ensure it appears on top */
             visibility: hidden;
             opacity: 0;
             transition: visibility 0s, opacity 0.3s ease;
@@ -79,14 +81,21 @@
     <div class="input-container">
         <div class="quantity-control-wrapper">
             <button style="background: white;" type="button" id="decrement-button" onclick="decrement()">
-                <svg style="background: white;" xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="#fca613" viewBox="0 0 256 256">
-                    <path d="M180,128a12,12,0,0,1-12,12H88a12,12,0,0,1,0-24h80A12,12,0,0,1,180,128Zm56,0A108,108,0,1,1,128,20,108.12,108.12,0,0,1,236,128Zm-24,0a84,84,0,1,0-84,84A84.09,84.09,0,0,0,212,128Z"></path>
+                <svg style="background: white;" xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                    fill="#fca613" viewBox="0 0 256 256">
+                    <path
+                        d="M180,128a12,12,0,0,1-12,12H88a12,12,0,0,1,0-24h80A12,12,0,0,1,180,128Zm56,0A108,108,0,1,1,128,20,108.12,108.12,0,0,1,236,128Zm-24,0a84,84,0,1,0-84,84A84.09,84.09,0,0,0,212,128Z">
+                    </path>
                 </svg>
             </button>
-            <input type="text" id="quantity-input" class="form-control text-center" readonly required placeholder="Jumlah" oninput="toggleButton()">
+            <input type="text" id="quantity-input" class="form-control text-center" readonly required
+                placeholder="Jumlah" oninput="toggleButton()">
             <button style="background: white;" type="button" id="increment-button" onclick="increment()">
-                <svg style="background: white;" xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="#fca613" viewBox="0 0 256 256">
-                    <path d="M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm40,112H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z"></path>
+                <svg style="background: white;" xmlns="http://www.w3.org/2000/svg" width="44" height="44"
+                    fill="#fca613" viewBox="0 0 256 256">
+                    <path
+                        d="M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm40,112H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z">
+                    </path>
                 </svg>
             </button>
         </div>
@@ -114,15 +123,20 @@
     <div class="btn-container mt-4">
         <button onclick="goBack()">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
-                <path d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z"></path>
+                <path
+                    d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z">
+                </path>
             </svg>
             <b>KEMBALI</b>
         </button>
-        
-        <a href="/konfir" style="text-decoration: none;" id="buy-ticket-btn" class="disabled" onclick="return validateQuantity()">
+
+        <a href="/konfir" style="text-decoration: none;" id="buy-ticket-btn" class="disabled"
+            onclick="return validateQuantity()">
             <b>BELI TIKET</b>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
-                <path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path>
+                <path
+                    d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z">
+                </path>
             </svg>
         </a>
     </div>
@@ -191,6 +205,8 @@
                 showAlert();
                 return false;
             }
+            // Save the quantity to localStorage before proceeding
+            localStorage.setItem('ticketQuantity', quantityInput.value);
             return true;
         }
 

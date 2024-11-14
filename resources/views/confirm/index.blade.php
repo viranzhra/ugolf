@@ -10,13 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Kufam&display=swap" rel="stylesheet">
     <style>
         /* Prevent scrolling */
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
         }
-        
+
         /* General styling */
         body {
             font-family: 'Kufam', sans-serif;
@@ -129,86 +130,86 @@
         }
 
         /* Custom modal backdrop */
-.modal-backdrop {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-/* Custom modal container */
-.modal-container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
+        /* Custom modal container */
+        .modal-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
 
-.modal-container h3 {
-    font-size: 20px;
-    color: #8F3581;
-    margin-bottom: 15px;
-}
+        .modal-container h3 {
+            font-size: 20px;
+            color: #8F3581;
+            margin-bottom: 15px;
+        }
 
-.modal-container p {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 20px;
-}
+        .modal-container p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-.modal-item-details {
-    padding-left: 40px;
-    padding-right: 40px;
-    color: #333;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
-}
+        .modal-item-details {
+            padding-left: 40px;
+            padding-right: 40px;
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
 
-/* Modal buttons */
-.modal-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
+        /* Modal buttons */
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
 
-.modal-buttons button {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    font-family: 'Kufam', sans-serif;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: white;
-    margin-top: 60px;
-}
+        .modal-buttons button {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            font-family: 'Kufam', sans-serif;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: white;
+            margin-top: 60px;
+        }
 
-.modal-buttons .confirm-btn {
-    background-color: #ce52bc;
-}
+        .modal-buttons .confirm-btn {
+            background-color: #ce52bc;
+        }
 
-.modal-buttons .confirm-btn:hover {
-    background-color: #8F3581;
-}
+        .modal-buttons .confirm-btn:hover {
+            background-color: #8F3581;
+        }
 
-.modal-buttons .cancel-btn {
-    background-color: #888;
-}
+        .modal-buttons .cancel-btn {
+            background-color: #888;
+        }
 
-.modal-buttons .cancel-btn:hover {
-    background-color: #666;
-}
+        .modal-buttons .cancel-btn:hover {
+            background-color: #666;
+        }
 
 
         /* Responsive adjustments */
@@ -224,14 +225,18 @@
             }
 
             .btn-container {
-                flex-direction: row; /* Align buttons side-by-side */
+                flex-direction: row;
+                /* Align buttons side-by-side */
                 justify-content: space-between;
                 width: 75%;
             }
 
-            .btn-container button, .btn-container a {
-                flex: 1; /* Let the buttons take equal width */
-                margin: 5px; /* Add some spacing between buttons */
+            .btn-container button,
+            .btn-container a {
+                flex: 1;
+                /* Let the buttons take equal width */
+                margin: 5px;
+                /* Add some spacing between buttons */
             }
 
             .judul {
@@ -259,14 +264,17 @@
             }
 
             .btn-container {
-                flex-direction: column; /* Stack buttons vertically */
+                flex-direction: column;
+                /* Stack buttons vertically */
                 align-items: center;
             }
 
-            .btn-container button, .btn-container a {
+            .btn-container button,
+            .btn-container a {
                 font-size: 14px;
                 padding: 8px 16px;
-                max-width: 300px; /* Prevent the buttons from growing too wide */
+                max-width: 300px;
+                /* Prevent the buttons from growing too wide */
                 width: 100%;
             }
         }
@@ -288,64 +296,120 @@
         <div class="item-detail">
             <div class="item-row">
                 <span>Jumlah Tiket</span>
-                <span>-</span>
+                <span id="ticket-quantity">{{ session('quantity', 0) }}</span>
             </div>
             <div class="item-row">
                 <span>Harga</span>
-                <span>-</span>
+                <span id="modalHarga">-</span>
             </div>
             <hr>
             <div class="item-row">
                 <span>Total Pembayaran</span>
-                <span>-</span>
+                <span id="modalTotalPembayaran">-</span>
             </div>
-        </div>        
+        </div>
     </div>
 
     <!-- Buttons -->
     <div class="btn-container mt-4">
         <button onclick="goBack()">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
-                <path d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z"></path>
+                <path
+                    d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z">
+                </path>
             </svg>
             <b>KEMBALI</b>
         </button>
-        <a href="#" onclick="confirmPayment(event)">
+        {{-- <a href="/payment" onclick="confirmPayment(event)"> --}}
+        <a href="/payment">
             <b>LANJUTKAN PEMBAYARAN</b>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
-                <path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path>
+                <path
+                    d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z">
+                </path>
             </svg>
         </a>
     </div>
 
-<!-- Custom Confirmation Alert Modal -->
-<div class="modal-backdrop" id="confirmModal">
-    <div class="modal-container">
-        <h3>Konfirmasi Pembayaran</h3>
-        <p>Apakah pesanan Anda sudah benar?</p>
-        <div class="modal-item-details">
-            <div class="item-row">
-                <span>Jumlah Tiket:</span>
-                <span id="modalJumlahTiket">-</span>
+    <!-- Custom Confirmation Alert Modal -->
+    {{-- <div class="modal-backdrop" id="confirmModal">
+        <div class="modal-container">
+            <h3>Konfirmasi Pembayaran</h3>
+            <p>Apakah pesanan Anda sudah benar?</p>
+            <div class="modal-item-details">
+                <div class="item-row">
+                    <span>Jumlah Tiket:</span>
+                    <span id="ticket-quantity">-</span>
+                    <span id="ticket-quantity">{{ session('quantity', 0) }}</span>
+                </div>
+                <div class="item-row">
+                    <span>Harga:</span>
+                    <span id="modalHarga">-</span>
+                </div>
+                <hr>
+                <div class="item-row">
+                    <span>Total Pembayaran:</span>
+                    <span id="modalTotalPembayaran">-</span>
+                </div>
             </div>
-            <div class="item-row">
-                <span>Harga:</span>
-                <span id="modalHarga">-</span>
-            </div>
-            <hr>
-            <div class="item-row">
-                <span>Total Pembayaran:</span>
-                <span id="modalTotalPembayaran">-</span>
+            <div class="modal-buttons">
+                <button class="confirm-btn" onclick="proceedToPayment()">Ya</button>
+                <button class="cancel-btn" onclick="closeModal()">Tidak</button>
             </div>
         </div>
-        <div class="modal-buttons">
-            <button class="confirm-btn" onclick="proceedToPayment()">Ya</button>
-            <button class="cancel-btn" onclick="closeModal()">Tidak</button>
-        </div>
-    </div>
-</div>
+    </div> --}}
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mengambil jumlah tiket dari localStorage atau sesi
+            const ticketQuantity = localStorage.getItem('ticketQuantity') || "{{ session('quantity', 0) }}";
+            document.getElementById('ticket-quantity').textContent = ticketQuantity;
+        
+            // Melakukan request ke API untuk mendapatkan data harga
+            fetch('http://192.168.43.138/api/cms')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Gagal mengakses API');
+                    }
+                    return response.json(); // Mengubah respon menjadi JSON
+                })
+                .then(data => {
+                    // Memeriksa apakah data yang diterima berisi array dan mencari item dengan cms_code === 1
+                    const hargaData = Array.isArray(data.data) ? data.data.find(item => item.cms_code === 1) : null;
+        
+                    if (hargaData) {
+                        const harga = parseFloat(hargaData.cms_value); // Mengonversi harga ke angka
+        
+                        // Menampilkan harga dalam format "Jumlah Tiket x Harga"
+                        document.getElementById('modalHarga').textContent = `${ticketQuantity} x ${harga.toLocaleString()}`;
+        
+                        // Menghitung total pembayaran
+                        const totalPembayaran = harga * ticketQuantity;
+                        document.getElementById('modalTotalPembayaran').textContent = totalPembayaran.toLocaleString(); // Format dengan pemisah ribuan
+                    } else {
+                        document.getElementById('modalHarga').textContent = 'Harga tidak ditemukan';
+                        document.getElementById('modalTotalPembayaran').textContent = '-';
+                    }
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                    document.getElementById('modalHarga').textContent = 'Gagal mengambil harga';
+                    document.getElementById('modalTotalPembayaran').textContent = '-';
+                });
+        });
+        </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const ticketQuantity = localStorage.getItem('ticketQuantity');
+    if (ticketQuantity) {
+        document.getElementById('ticket-quantity').textContent = ticketQuantity;
+    } else {
+        document.getElementById('ticket-quantity').textContent = "{{ session('quantity', 0) }}";
+    }
+});
+
+
         function goBack() {
             window.history.back();
         }
@@ -358,19 +422,18 @@
         }
 
         function confirmPayment(event) {
-    event.preventDefault();
-    document.getElementById("confirmModal").style.display = "flex";
-}
+            event.preventDefault();
+            document.getElementById("confirmModal").style.display = "flex";
+        }
 
-function closeModal() {
-    document.getElementById("confirmModal").style.display = "none";
-}
+        function closeModal() {
+            document.getElementById("confirmModal").style.display = "none";
+        }
 
-function proceedToPayment() {
-    closeModal();
-    window.location.href = "/payment";
-}
-
+        function proceedToPayment() {
+            closeModal();
+            window.location.href = "/payment";
+        }
     </script>
 </body>
 

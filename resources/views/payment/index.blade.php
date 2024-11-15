@@ -124,12 +124,14 @@
                     console.log('Full response Cek Status:', response.data);
                     
                     const message = response.data.message || "Status tidak ditemukan";
+                    checkStatusBtn.disabled = false;
+                    nameStatusBtn.textContent = "Cek Status Transaksi";
 
                     if (response.data.ack === '00') { // Success Transaction PAID
                         // document.getElementById("transaction-status").innerText = message;
                         clearInterval(cd);
                         sendData(true);
-                    } else if (response.data.ack === '07' || response.data.ack === '08') {  // Transaction Not Yet Paid or QRIS Has Been Expired
+                    } else if (response.data.ack === '07') {  // Transaction Not Yet Paid
                         if(count <= 0) { // QRIS Has Been Expired
                             clearInterval(cd);
                             // document.getElementById("transaction-status").innerHTML = '';
@@ -138,18 +140,15 @@
                         } else {
                             document.getElementById("transaction-status").innerHTML = `<span style="color: red">${message}</span>`;
                         }
-                    }
-
-                    checkStatusBtn.disabled = false;
-                    nameStatusBtn.textContent = "Cek Status Transaksi";
-
-                    if (response.data.ack === '08') {
-                        qris_pict.style.display = 'flex';
-                        qris_code.style.display = 'none';
-                        document.querySelector('.btn-container').style = "";
-                        svgIconBack.style.display = 'block';
-                        checkStatusBtn.addEventListener('click', function() {window.location.href = "{{ route('qty.index') }}";});
-                        nameStatusBtn.textContent = "Kembali";
+                    } else if (response.data.ack === '08') { // QRIS Has Been Expired
+                        // qris_pict.style.display = 'flex';
+                        // qris_code.style.display = 'none';
+                        // document.querySelector('.btn-container').style = "";
+                        // svgIconBack.style.display = 'block';
+                        // checkStatusBtn.addEventListener('click', function() {window.location.href = "{{ route('qty.index') }}";});
+                        // nameStatusBtn.textContent = "Kembali";
+                        clearInterval(cd);
+                        sendData(false);
                     }
                 })
                 .catch(error => {

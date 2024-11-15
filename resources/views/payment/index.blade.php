@@ -123,6 +123,7 @@
                     if (response.data.ack === '00') {
                         document.getElementById("transaction-status").innerText = message;
                         clearInterval(cd);
+                        window.location.href = "/done";
                     } else if (response.data.ack === '07' || response.data.ack === '08') {  
                         if(count <= 0) {
                             clearInterval(cd);

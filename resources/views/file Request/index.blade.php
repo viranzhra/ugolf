@@ -80,7 +80,7 @@
                 event.preventDefault();
     
                 $.ajax({
-                    url: 'http://192.168.43.138/api/frontend/init',
+                    url: `{{ env('API_URL') }}/frontend/init`,
                     type: 'POST',
                     dataType: 'json',
                     data: {

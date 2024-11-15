@@ -126,7 +126,7 @@
                     const message = response.data.message || "Status tidak ditemukan";
 
                     if (response.data.ack === '00') { // Success Transaction PAID
-                        document.getElementById("transaction-status").innerText = message;
+                        // document.getElementById("transaction-status").innerText = message;
                         clearInterval(cd);
                         sendData(true);
                     } else if (response.data.ack === '07' || response.data.ack === '08') {  // Transaction Not Yet Paid or QRIS Has Been Expired

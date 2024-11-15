@@ -76,7 +76,7 @@
     <div class="judul">
         BELI TIKET
     </div>
-    
+
     @if ($errors->any())
         <div class="custom-alert active">
             <div class="alert-box">
@@ -139,7 +139,7 @@
         
         <div class="btn-container mt-4">
             <!-- Tombol Kembali -->
-            <button type="button" onclick="window.history.back()">
+            <button type="button" onclick="window.location.href='{{ route('awal') }}'">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256">
                     <path
                         d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z">
@@ -147,7 +147,6 @@
                 </svg>
                 <b>KEMBALI</b>
             </button>
-
             <!-- Tombol Beli Tiket -->
             <button type="submit" id="buy-ticket-btn" class="disabled">
                 <b>BELI TIKET</b>

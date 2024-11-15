@@ -21,7 +21,7 @@ Route::get('/request', function () {
 
 Route::get('/awal', function () {
     return view('home/index');
-});
+})->name('awal');
 
 // Rute untuk halaman input jumlah tiket (qty)
 Route::get('/qty', [TicketController::class, 'index'])->name('qty.index');

@@ -80,7 +80,7 @@ class BeliTiketController extends Controller
             if ($responseData['success']) {
                 $data = $responseData['data'];
                 $transaction = $responseData['transaction'];
-                return view('payment/draft_index', [
+                return view('payment/index', [
                     'qrisData' => $data,
                     'transaction' => $transaction,
                 ]);

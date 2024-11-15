@@ -267,7 +267,7 @@ body {
     }
 
     .quantity-control-wrapper input {
-        width: 100%; /* Ensure input takes full width */
+        width: 70%; /* Ensure input takes full width */
     }
 
     .calc-btn {
@@ -278,19 +278,20 @@ body {
     .btn-container {
         flex-direction: column; /* Stack buttons vertically */
         align-items: center;
+        margin-top: 330px;
     }
 
     .btn-container button {
-        font-size: 14px;
+        font-size: 10px;
         padding: 8px 16px;
-        max-width: 300px; /* Prevent the buttons from growing too wide */
-        width: 100%;
+        max-width: 80px; /* Prevent the buttons from growing too wide */
+        width: 50%;
     }
 
     .btn-container a {
-        font-size: 14px;
+        font-size: 10px;
         padding: 8px 16px;
-        max-width: 300px; /* Prevent the buttons from growing too wide */
+        max-width: 80x; /* Prevent the buttons from growing too wide */
         width: 100%;
     }
 }
@@ -317,13 +318,13 @@ body {
     .btn-container button {
         flex: 1; /* Let the buttons take equal width */
         margin: 5px; /* Add some spacing between buttons */
-        margin-bottom: 300px;
+        margin-bottom: 200px;
     }
 
     .btn-container a {
         flex: 1; /* Let the buttons take equal width */
         margin: 5px; /* Add some spacing between buttons */
-        margin-bottom: 300px;
+        margin-bottom: 200px;
     }
 
     .calc-btn {
@@ -340,9 +341,9 @@ body {
     
 }
 
-@media (max-width: 480px) {
+@media (max-width: 360px) {
     .judul {
-        width: 400px;
+        width: 350px;
         font-size: 20px;
         padding: 10px;
     }

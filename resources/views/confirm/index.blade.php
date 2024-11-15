@@ -313,7 +313,7 @@
         <button onclick="goBack()">
             <b>KEMBALI</b>
         </button>
-        <a href="/payment" onclick="confirmPayment(event)">
+        <a href="#" onclick="confirmPayment(event)">
             <b>LANJUTKAN PEMBAYARAN</b>
         </a>
     </div>
@@ -339,7 +339,7 @@
                 </div>
             </div>
             <div class="modal-buttons">
-                <form id="paymentForm" action="{{ route('process_ticket_purchase') }}" method="POST">
+                <form id="paymentForm" action="{{ route('pembayaran') }}" method="POST">
                     @csrf
                     <input type="hidden" name="qty" id="hidden-ticket-quantity">
                     <button type="submit" class="confirm-btn">Ya</button>
@@ -401,37 +401,7 @@
             document.getElementById('confirmModal').style.display = 'none';
         }
 
-        function proceedToPayment() {
-            // Close modal
-            closeModal();
-
-            // Store total payment in localStorage
-            const totalPembayaran = document.getElementById('source-total-pembayaran').textContent;
-            localStorage.setItem('totalPembayaran', totalPembayaran);
-
-            const ticketQuantity = document.getElementById('source-ticket-quantity').textContent;
-
-            // Create form and submit POST request
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = `{{ route('process_ticket_purchase') }}`;
-
-            const qtyInput = document.createElement('input');
-            qtyInput.type = 'hidden';
-            qtyInput.name = 'qty';
-            qtyInput.value = parseInt(ticketQuantity);
-
-            const csrfToken = document.createElement('input');
-            csrfToken.type = 'hidden';
-            csrfToken.name = '_token';
-            csrfToken.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            form.appendChild(qtyInput);
-            form.appendChild(csrfToken);
-            document.body.appendChild(form);
-            form.submit();
-        }
-
+    
         function goBack() {
             window.history.back();
         }

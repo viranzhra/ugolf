@@ -22,9 +22,11 @@ class BeliTiketController extends Controller
     //     $this->qrisService = $qrisService;
     // }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('qty.index');
+        $quantity = $request->session()->get('quantity', 0);
+
+        return view('qty.index', compact('quantity'));
     }
 
     public function konfirmasi(Request $request)
@@ -43,29 +45,29 @@ class BeliTiketController extends Controller
     //     return view('kiosk.beli_tiket');
     // }
 
-    public function processTicketPurchase(Request $request)
+    public function pembayaran(Request $request)
     {
-            $request->validate([
-                'qty' => 'required|integer|min:1'
-            ]);
+        $request->validate([
+            'qty' => 'required|integer|min:1'
+        ]);
 
-            $qty = $request->qty;
-            $amountPerTicket = 100;
-            $totalAmount = $amountPerTicket * $qty;
+        $qty = $request->qty;
+        $amountPerTicket = 100;
+        $totalAmount = $amountPerTicket * $qty;
         
-            $transactionData = [
-                'merchantId' => env('MERCHANT_ID'),
-                'terminalId' => env('TERMINAL_ID'),                
-                'qty' => $qty
-            ];
+        $transactionData = [
+            'merchantId' => env('MERCHANT_ID'),
+            'terminalId' => env('TERMINAL_ID'),                
+            'qty' => $qty
+        ];
         
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json'
-            ])->post(env('API_URL') . '/qris/generate', $transactionData);
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json'
+        ])->post(env('API_URL') . '/qris/generate', $transactionData);
         
-            //dd($response->body());
+        //dd($response->body());
 
-         if ($response->successful()) {
+        if ($response->successful()) {
             // dd($response->json());
             $responseData = $response->json();
             
@@ -79,10 +81,9 @@ class BeliTiketController extends Controller
             }   
         } else {
             // dd($response->json());
-            return back()->withErrors($response->json()['message'] ?? 'Terjadi kesalahan pada server');        
+            return redirect()->route('qty.index')->withErrors($response->json()['message'] ?? 'Terjadi kesalahan pada server');        
         }
-
-        return back()->withErrors('Gagal membuat QRIS. Silakan coba lagi.');
+        return redirect()->route('qty.index')->withErrors('Gagal membuat transaksi. Silakan coba lagi.');
     }
 
     public function sukses(Request $request)

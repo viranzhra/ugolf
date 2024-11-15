@@ -76,6 +76,18 @@
     <div class="judul">
         BELI TIKET
     </div>
+    
+    @if ($errors->any())
+        <div class="custom-alert active">
+            <div class="alert-box">
+                <h4>Error</h4>
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+                <button class="alert-btn" onclick="this.closest('.custom-alert').classList.remove('active')">OK</button>
+            </div>
+        </div>
+    @endif
 
     <!-- Kontrol Quantity dengan Plus dan Minus -->
     <div class="input-container">
@@ -152,7 +164,7 @@
     <div class="custom-alert" id="custom-alert">
         <div class="alert-box">
             <h4>Peringatan</h4>
-            <p>Mohon masukkan jumlah tiket sebelum melanjutkan.</p>
+            <p>Mohon masukkan jumlah tiket<br>sebelum melanjutkan.</p>
             <button class="alert-btn" onclick="closeAlert()">OK</button>
         </div>
     </div>

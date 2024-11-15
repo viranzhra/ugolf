@@ -14,10 +14,7 @@ class TicketController extends Controller
      */
     public function index(Request $request)
     {
-        // Ambil data quantity dari sesi; beri nilai default 0 jika tidak ada data
-        $quantity = $request->session()->get('quantity', 0);
-
-        return view('qty.index', compact('quantity'));
+        return redirect()->route('tiket.index');
     }
 
     /**

@@ -5,10 +5,12 @@ use App\Http\Controllers\BeliTiketController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ConfirmController;
 
-Route::get('/tiket', [BeliTiketController::class, 'index'])->name('tiket.index');
-Route::post('/tiket/konfirmasi', [BeliTiketController::class, 'konfirmasi'])->name('konfirmasi');
-Route::post('/tiket/pembayaran', [BeliTiketController::class, 'pembayaran'])->name('pembayaran');
-Route::post('/tiket/sukses', [BeliTiketController::class, 'sukses'])->name('sukses');
+Route::middleware('isTrue')->group(function () {
+    Route::get('/tiket', [BeliTiketController::class, 'index'])->name('tiket.index');
+    Route::post('/tiket/konfirmasi', [BeliTiketController::class, 'konfirmasi'])->name('konfirmasi');
+    Route::post('/tiket/pembayaran', [BeliTiketController::class, 'pembayaran'])->name('pembayaran');
+    Route::post('/tiket/sukses', [BeliTiketController::class, 'sukses'])->name('sukses');
+});
 
 Route::get('/', function () {
     return redirect('/awal');

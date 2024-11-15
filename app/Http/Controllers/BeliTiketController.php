@@ -71,6 +71,10 @@ class BeliTiketController extends Controller
             // dd($response->json());
             $responseData = $response->json();
             
+            if (!$responseData) {
+                return redirect()->route('tiket.index')->withErrors('Terjadi kesalahan pada server');
+            }
+            
             if ($responseData['success']) {
                 $data = $responseData['data'];
                 $transaction = $responseData['transaction'];
@@ -81,9 +85,9 @@ class BeliTiketController extends Controller
             }   
         } else {
             // dd($response->json());
-            return redirect()->route('qty.index')->withErrors($response->json()['message'] ?? 'Terjadi kesalahan pada server');        
+            return redirect()->route('tiket.index')->withErrors($response->json()['message'] ?? 'Terjadi kesalahan pada server');        
         }
-        return redirect()->route('qty.index')->withErrors('Gagal membuat transaksi. Silakan coba lagi.');
+        return redirect()->route('tiket.index')->withErrors('Gagal membuat transaksi. Silakan coba lagi.');
     }
 
     public function sukses(Request $request)

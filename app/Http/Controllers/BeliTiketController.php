@@ -48,17 +48,19 @@ class BeliTiketController extends Controller
     public function pembayaran(Request $request)
     {
         $request->validate([
-            'qty' => 'required|integer|min:1'
+            'qty' => 'required|integer|min:1',
         ]);
 
         $qty = $request->qty;
+        $expire = (int)(env('EXPIRED_TIME') ?? 5);
         $amountPerTicket = 100;
         $totalAmount = $amountPerTicket * $qty;
         
         $transactionData = [
             'merchantId' => env('MERCHANT_ID'),
             'terminalId' => env('TERMINAL_ID'),                
-            'qty' => $qty
+            'qty' => $qty,
+            'expire' => $expire
         ];
         
         $response = Http::withHeaders([

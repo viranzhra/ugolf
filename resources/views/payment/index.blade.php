@@ -159,7 +159,7 @@
                 });
             }
 
-            const statusInterval = setInterval(checkStatus, {{ env('EXPIRED_TIME') <= 120 ? 5000 : 10000 }});
+            const statusInterval = setInterval(checkStatus, {{ env('EXPIRED_TIME') < 120 ? 5000 : 10000 }});
 
             setTimeout(() => {
                 clearInterval(statusInterval);

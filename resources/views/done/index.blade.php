@@ -129,8 +129,7 @@
     <a href="/" class="button">Kembali ke Beranda</a>
 
     <script>
-        // Condition to determine success or failure
-        const paymentSuccessful = false; // Change this to 'true' for success or 'false' for failure
+        const paymentSuccessful = {{ $paymentSuccessful }};    
 
         // Elements
         const successIcon = document.getElementById('successIcon');
@@ -138,7 +137,7 @@
         const statusTitle = document.getElementById('statusTitle');
         const statusMessage = document.getElementById('statusMessage');
 
-        if (paymentSuccessful) {
+        if (paymentSuccessful === true) {
             // Show success message and icon
             successIcon.style.display = 'block';
             statusTitle.textContent = 'PEMBAYARAN BERHASIL';
@@ -147,7 +146,7 @@
             // Show error message and icon
             errorIcon.style.display = 'block';
             statusTitle.textContent = 'PEMBAYARAN GAGAL';
-            statusMessage.textContent = 'Mohon maaf, pembayaran belum berhasil';
+            statusMessage.textContent = 'Waktu Pembayaran Telah Habis';
         }
     </script>
 

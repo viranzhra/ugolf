@@ -99,26 +99,33 @@ class BeliTiketController extends Controller
 
     public function sukses(Request $request)
     {
-        $request->merge([
-            'qty' => 1,
-            'amount' => 100,
-            'total_amount' => 100,
-            'payment_date' => '2024-11-14 04:09:28'
-        ]);
-        
         $request->validate([
-            'qty' => 'required|integer|min:1',
-            'amount' => 'required|numeric',
-            'total_amount' => 'required|numeric',
-            'payment_date' => 'required|date',
-        ]);
+            'paymentSuccessful' => 'required|in:true,false',            
+        ]);        
+        
+        $paymentSuccessful = $request->paymentSuccessful;
+        
+        return view('done.index', compact('paymentSuccessful'));
+        // $request->merge([
+        //     'qty' => 1,
+        //     'amount' => 100,
+        //     'total_amount' => 100,
+        //     'payment_date' => '2024-11-14 04:09:28'
+        // ]);
+        
+        // $request->validate([
+        //     'qty' => 'required|integer|min:1',
+        //     'amount' => 'required|numeric',
+        //     'total_amount' => 'required|numeric',
+        //     'payment_date' => 'required|date',
+        // ]);
 
-        $qty = $request->qty;
-        $amount = $request->amount;
-        $totalAmount = $request->total_amount;
-        $paymentDate = $request->payment_date;
+        // $qty = $request->qty;
+        // $amount = $request->amount;
+        // $totalAmount = $request->total_amount;
+        // $paymentDate = $request->payment_date;
 
-        return view('done.draft_index', compact('qty', 'amount', 'totalAmount', 'paymentDate'));    
+        // return view('done.draft_index', compact('qty', 'amount', 'totalAmount', 'paymentDate'));    
     }
 
     public function showQRIS($trx_id)

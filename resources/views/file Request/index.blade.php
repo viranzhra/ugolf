@@ -76,15 +76,9 @@
 
     <script>
         $(document).ready(function() {
-            // Check if the initialization is already done
-            if (localStorage.getItem('initialized') === 'true') {
-                // Redirect to home page
-                window.location.href = '/awal';
-            }
-
             $('#initForm').on('submit', function(event) {
                 event.preventDefault();
-
+    
                 $.ajax({
                     url: 'http://192.168.43.138/api/frontend/init',
                     type: 'POST',
@@ -98,21 +92,19 @@
                         const alertBox = $('#alert');
                         if (response.status) {
                             alertBox.removeClass('d-none alert-danger').addClass('alert-success')
-                                     .text(response.message);
-
-                            // Set initialization flag in local storage
-                            localStorage.setItem('initialized', 'true');
-
+                                    .text(response.message);
+                            // alert('Device initialization successful! Price: ' + response.data.price);
+    
                             // Redirect to the home page (index.html) on success
                             window.location.href = '/awal';
                         } else {
                             alertBox.removeClass('d-none alert-success').addClass('alert-danger')
-                                     .text(response.message + ' (Code: ' + response.code + ')');
+                                    .text(response.message + ' (Code: ' + response.code + ')');
                         }
                     },
                     error: function(xhr) {
                         $('#alert').removeClass('d-none alert-success').addClass('alert-danger')
-                                   .text('An error occurred. Please try again.');
+                                .text('An error occurred. Please try again.');
                     }
                 });
             });

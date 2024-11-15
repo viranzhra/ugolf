@@ -32,7 +32,12 @@ class BeliTiketController extends Controller
     public function konfirmasi(Request $request)
     {
         $request->validate([
-            'qty' => 'required|integer|min:1'
+            'qty' => 'required|integer|min:1|max:1000'        
+        ], [
+            'qty.required' => 'Jumlah tiket harus diisi',
+            'qty.integer' => 'Jumlah tiket harus berupa angka',
+            'qty.min' => 'Minimum jumlah tiket adalah 1',
+            'qty.max' => 'Maksimum jumlah tiket adalah 1000',
         ]);
 
         $qty = $request->qty;
@@ -48,7 +53,7 @@ class BeliTiketController extends Controller
     public function pembayaran(Request $request)
     {
         $request->validate([
-            'qty' => 'required|integer|min:1',
+            'qty' => 'required|integer|min:1|max:1000',
         ]);
 
         $qty = $request->qty;

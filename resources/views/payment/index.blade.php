@@ -50,7 +50,7 @@
             <b class="payment-amount">Rp {{ number_format($qrisData['amount'], 0, ',', '.') }}</b>
         </div>
 
-        <p class="mt-2"><strong>Expire:</strong> <span id="expire" class="fw-bold">{{ $expireSeconds }}</span> detik</p>
+        <p class="mt-2 text-center"><strong>Berakhir dalam:</strong><br><span id="expire"></span></p>
 
         <div class="mt-2 text-center">
             <p><strong><span id="transaction-status"></span></strong></p>
@@ -67,15 +67,38 @@
         document.addEventListener('DOMContentLoaded', function() {
             let elemenEXP = document.getElementById('expire');
             let count = {{ $expireSeconds }};
+            
+            // Display initial time
+            let initialHours = Math.floor(count / 3600);
+            let initialMinutes = Math.floor((count % 3600) / 60);
+            let initialSeconds = count % 60;
+            
+            let initialTimeString = '';
+            if (initialHours > 0) initialTimeString += initialHours + ' jam ';
+            if (initialMinutes > 0) initialTimeString += initialMinutes + ' menit ';
+            if (initialSeconds >= 0) initialTimeString += initialSeconds + ' detik';
+            
+            elemenEXP.textContent = initialTimeString;
+            
             const cd = setInterval(function() {
                 count--;
-                elemenEXP.textContent = count;
+                let hours = Math.floor(count / 3600);
+                let minutes = Math.floor((count % 3600) / 60);
+                let seconds = count % 60;
+                
+                let timeString = '';
+                if (hours > 0) timeString += hours + ' jam ';
+                if (minutes > 0) timeString += minutes + ' menit ';
+                if (seconds >= 0) timeString += seconds + ' detik';
+                
+                elemenEXP.textContent = timeString;
+                
                 if (count <= 0) {
                     elemenEXP.style.color = 'red';
                     clearInterval(cd);
                 }
             }, 1000);
-
+            
             const checkStatusBtn = document.getElementById('check-status-btn');
             const nameStatusBtn = document.getElementById('name-status-btn');
             const svgIconBack = document.getElementById('svgBack');

@@ -50,7 +50,7 @@
             <b class="payment-amount">Rp {{ number_format($qrisData['amount'], 0, ',', '.') }}</b>
         </div>
 
-        <p class="mt-2 text-center"><strong>Berakhir dalam:</strong><br><span id="expire"></span></p>
+        <p id="main-expire" class="mt-2 text-center"><strong>Berakhir dalam:</strong><br><span id="expire"></span></p>
 
         <div class="mt-2 text-center">
             <p><strong><span id="transaction-status"></span></strong></p>
@@ -65,6 +65,7 @@
     <script src="{{ asset('js/axios.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let mainEXP = document.getElementById('main-expire');
             let elemenEXP = document.getElementById('expire');
             let count = {{ $expireSeconds }};
             
@@ -115,15 +116,21 @@
                     amount: "{{ $qrisData['amount'] }}"
                 })
                 .then(response => {
-                    // console.log('Full response Cek Status:', response.data);
+                    console.log('Full response Cek Status:', response.data);
 
                     const message = response.data.message || "Status tidak ditemukan";
 
                     if (response.data.ack === '00') {
                         document.getElementById("transaction-status").innerText = message;
                         clearInterval(cd);
-                    } else if (response.data.ack === '07') {
-                        document.getElementById("transaction-status").innerHTML = `<span style="color: red">${message}</span>`;
+                    } else if (response.data.ack === '07' || response.data.ack === '08') {  
+                        if(count <= 0) {
+                            clearInterval(cd);
+                            document.getElementById("transaction-status").innerHTML = '';
+                            mainEXP.innerHTML = `<strong style="color: red">${message}</strong>`;
+                        } else {
+                            document.getElementById("transaction-status").innerHTML = `<span style="color: red">${message}</span>`;
+                        }
                     }
 
                     checkStatusBtn.disabled = false;
@@ -152,7 +159,7 @@
                 });
             }
 
-            const statusInterval = setInterval(checkStatus, 10000);
+            const statusInterval = setInterval(checkStatus, {{ env('EXPIRED_TIME') <= 120 ? 5000 : 10000 }});
 
             setTimeout(() => {
                 clearInterval(statusInterval);

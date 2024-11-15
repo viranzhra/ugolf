@@ -356,7 +356,7 @@
             document.getElementById('source-ticket-quantity').textContent = ticketQuantity;
 
             // Fetch harga dari API dan tampilkan di rincian pembelian
-            fetch('http://192.168.43.138/api/cms')
+            fetch(`{{ env('API_URL') }}/cms`)
                 .then(response => {
                     if (!response.ok) throw new Error('Gagal mengakses API');
                     return response.json();

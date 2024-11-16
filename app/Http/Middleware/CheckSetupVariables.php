@@ -17,9 +17,9 @@ class CheckSetupVariables
     {
         $merchantId = env('MERCHANT_ID');
         $terminalId = env('TERMINAL_ID');
-        $expiredTime = env('EXPIRED_TIME');
+        // $expiredTime = env('EXPIRED_TIME');
 
-        if (empty($merchantId) || empty($terminalId) || empty($expiredTime)) {
+        if (empty($merchantId) || empty($terminalId)) {
             return redirect('/request');
         }
 

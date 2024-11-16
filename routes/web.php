@@ -37,7 +37,7 @@ Route::get('/payment', function () {
     return view('payment/index');
 });
 
-Route::get('/done', function () {
+Route::post('/done', function () {
     return view('done/index');
 });
 

@@ -60,6 +60,11 @@
             <button id="check-status-btn" class="mt-3 d-flex align-items-start"><svg id="svgBack" style="display:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256"><path d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z"></path></svg><b id="name-status-btn">Cek Status Transaksi</b></button>
         </div>
 
+        <form id="sendDataForm" action="{{ route('sukses') }}" method="POST" style="display: none;">
+            @csrf
+            <input type="hidden" id="isTrueFalse" name="paymentSuccessful" value="false">
+        </form>
+
     </div>       
 
     <script src="{{ asset('js/axios.min.js') }}"></script>
@@ -117,32 +122,33 @@
                 })
                 .then(response => {
                     console.log('Full response Cek Status:', response.data);
-
+                    
                     const message = response.data.message || "Status tidak ditemukan";
-
-                    if (response.data.ack === '00') {
-                        document.getElementById("transaction-status").innerText = message;
-                        clearInterval(cd);
-                    } else if (response.data.ack === '07' || response.data.ack === '08') {  
-                        if(count <= 0) {
-                            clearInterval(cd);
-                            document.getElementById("transaction-status").innerHTML = '';
-                            mainEXP.innerHTML = `<strong style="color: red">${message}</strong>`;
-                        } else {
-                            document.getElementById("transaction-status").innerHTML = `<span style="color: red">${message}</span>`;
-                        }
-                    }
-
                     checkStatusBtn.disabled = false;
                     nameStatusBtn.textContent = "Cek Status Transaksi";
 
-                    if (response.data.ack === '08') {
-                        qris_pict.style.display = 'flex';
-                        qris_code.style.display = 'none';
-                        document.querySelector('.btn-container').style = "";
-                        svgIconBack.style.display = 'block';
-                        checkStatusBtn.addEventListener('click', function() {window.location.href = "{{ route('qty.index') }}";});
-                        nameStatusBtn.textContent = "Kembali";
+                    if (response.data.ack === '00') { // Success Transaction PAID
+                        // document.getElementById("transaction-status").innerText = message;
+                        clearInterval(cd);
+                        sendData(true);
+                    } else if (response.data.ack === '07') {  // Transaction Not Yet Paid
+                        if(count <= 0) { // QRIS Has Been Expired
+                            clearInterval(cd);
+                            // document.getElementById("transaction-status").innerHTML = '';
+                            // mainEXP.innerHTML = `<strong style="color: red">${message}</strong>`;
+                            sendData(false);
+                        } else {
+                            document.getElementById("transaction-status").innerHTML = `<span style="color: red">${message}</span>`;
+                        }
+                    } else if (response.data.ack === '08') { // QRIS Has Been Expired
+                        // qris_pict.style.display = 'flex';
+                        // qris_code.style.display = 'none';
+                        // document.querySelector('.btn-container').style = "";
+                        // svgIconBack.style.display = 'block';
+                        // checkStatusBtn.addEventListener('click', function() {window.location.href = "{{ route('qty.index') }}";});
+                        // nameStatusBtn.textContent = "Kembali";
+                        clearInterval(cd);
+                        sendData(false);
                     }
                 })
                 .catch(error => {
@@ -166,6 +172,11 @@
             }, count * 1000);
 
             checkStatusBtn.addEventListener('click', checkStatus);
+
+            function sendData(data) {
+                document.getElementById('isTrueFalse').value = data;
+                document.getElementById('sendDataForm').submit();
+            }
         });
     </script>
 </body>

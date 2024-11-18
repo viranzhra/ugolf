@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeliTiketController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ConfirmController;
+use App\Http\Controllers\FrontEndController;
 
 Route::middleware('isTrue')->group(function () {
     Route::get('/tiket', [BeliTiketController::class, 'index'])->name('tiket.index');
@@ -20,6 +21,8 @@ Route::get('/request', function () {
     return view('file Request/index');
 });
 
+Route::post('/frontend/init', [FrontEndController::class, 'update'])->name('frontend.init');
+Route::post('/frontend/saveData', [FrontendController::class, 'saveData']);
 
 Route::get('/awal', function () {
     return view('home/index');

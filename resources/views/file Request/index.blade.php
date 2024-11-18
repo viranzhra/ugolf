@@ -53,11 +53,104 @@
 </head>
 <body>
     <!-- Header title -->
+    <script>
+        // Cek status inisialisasi
+        if (localStorage.getItem('initialized') === 'true') {
+            // Jika sudah diinisialisasi, alihkan ke halaman lain
+            window.location.href = '/awal'; // Ganti dengan halaman tujuan
+        }
+    </script>
+
+    <!-- Header title -->
     <div class="judul">Device Initialization</div>
+
+    <div style="width: 40%;" class="container mt-5">
+        <div id="alert" class="alert d-none" role="alert"></div>
+        <form style="background-color: #ffeefc; box-shadow: 2px 5px 10px rgb(0 0 0 / 10%);" id="initForm" class="p-4 border rounded">
+            <div class="mb-3">
+                <label for="fe_code" class="form-label">FE Code</label>
+                <input style="border-radius: 20px;" type="text" class="form-control" id="fe_code" name="fe_code" required>
+            </div>
+            <div class="mb-3">
+                <label for="merchant_code" class="form-label">Merchant Code</label>
+                <input style="border-radius: 20px;" type="text" class="form-control" id="merchant_code" name="merchant_code" required>
+            </div>
+            <div class="mb-3">
+                <label for="terminal_code" class="form-label">Terminal Code</label>
+                <input style="border-radius: 20px;" type="text" class="form-control" id="terminal_code" name="terminal_code" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Initialize</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#initForm').on('submit', function(event) {
+                event.preventDefault();
+    
+                $.ajax({
+                    url: `http:192.168.43.45/api/frontend/init`,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        fe_code: $('#fe_code').val(),
+                        merchant_code: $('#merchant_code').val(),
+                        terminal_code: $('#terminal_code').val(),
+                    },
+                    success: function(response) {
+                        const alertBox = $('#alert');
+                        if (response.status) {
+                            alertBox.removeClass('d-none alert-danger').addClass('alert-success')
+                                    .text(response.message);
+
+                            // Simpan status inisialisasi ke localStorage
+                            localStorage.setItem('initialized', 'true');
+    
+                            // Redirect ke halaman home (index.html)
+                            window.location.href = '/awal';
+                        } else {
+                            alertBox.removeClass('d-none alert-success').addClass('alert-danger')
+                                    .text(response.message + ' (Code: ' + response.code + ')');
+                        }
+                    },
+                    error: function(xhr) {
+                        $('#alert').removeClass('d-none alert-success').addClass('alert-danger')
+                                .text('An error occurred. Please try again.');
+                    }
+                });
+            });
+        });
+    </script> 
+
+    <script>
+        document.getElementById('initForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Ambil nilai inputan
+            const feCode = document.getElementById('fe_code').value;
+            const merchantCode = document.getElementById('merchant_code').value;
+            const terminalCode = document.getElementById('terminal_code').value;
+
+            // Simpan ke localStorage
+            localStorage.setItem('fe_code', feCode);
+            localStorage.setItem('merchant_code', merchantCode);
+            localStorage.setItem('terminal_code', terminalCode);
+
+            // Tandai inisialisasi berhasil
+            localStorage.setItem('initialized', 'true');
+
+            // Arahkan ke halaman /awal setelah berhasil
+            window.location.href = '/awal';
+        });
+
+    </script>
+
+
+    {{-- <div class="judul">Device Initialization</div>
 
     <div style="width: 45%;" class="container mt-5">
         <div id="alert" class="alert d-none" role="alert"></div>
-        <form id="initForm" class="p-4 border rounded">
+        <form style="background-color: #fafafa; box-shadow: 2px 5px 10px rgb(0 0 0 / 10%);" id="initForm" class="p-4 border rounded">
             <div class="mb-3">
                 <label for="fe_code" class="form-label">FE Code</label>
                 <input style="border-radius: 20px;" type="text" class="form-control" id="fe_code" name="fe_code" required>
@@ -109,6 +202,6 @@
                 });
             });
         });
-    </script>    
+    </script>     --}}
 </body>
 </html>

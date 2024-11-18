@@ -353,16 +353,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Ambil jumlah tiket dari session atau localStorage
             const ticketQuantity = localStorage.getItem('ticketQuantity') || "{{ session('quantity', 0) }}";
+            const terminalCode = localStorage.getItem('terminal_code') || "{{ session('quantity', 0) }}";
+            
             document.getElementById('source-ticket-quantity').textContent = ticketQuantity;
 
             // Fetch harga dari API dan tampilkan di rincian pembelian
-            fetch(`{{ env('API_URL') }}/cms`)
+            fetch(`{{ env('API_URL') }}/cms/get-by-code/${terminalCode}`)
                 .then(response => {
                     if (!response.ok) throw new Error('Gagal mengakses API');
                     return response.json();
                 })
                 .then(data => {
-                    const hargaData = data.data.find(item => item.cms_code === 1);
+                    const hargaData = data.data.find(item => item.cms_code > 0);
                     if (hargaData) {
                         const harga = parseFloat(hargaData.cms_value);
 

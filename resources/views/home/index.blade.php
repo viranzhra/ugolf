@@ -139,11 +139,33 @@
                 font-size: 72px;
             }
         }
+
+        #notification {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 240px;
+            height: 50px;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 9999;
+            display: none;
+            text-align: center;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: left;
+            background: rgb(229,133,213);
+            border: none;
+            background-color: rgba(255, 255, 255, 0.555);
+        }
     </style>
 </head>
 
 <body>
     <div>
+        {{-- notifikasi inisialisasi --}}
+        <div id="notification" class="alert alert-success" role="alert" style="display: none;"></div>
+
         <!-- SVG element positioned in the top right corner -->
         <svg class="svg-container" width="645" height="797" viewBox="0 0 645 797" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M872.95 337.805C836.732 419.41 716.401 399.793 632.857 431.28C559.407 458.962 492.256 539.027 419.923 508.544C347.806 478.151 355.813 375.444 327.369 302.537C301.66 236.638 250.433 177.983 263.866 108.534C279.208 29.2107 327.29 -47.4302 401.317 -79.7954C474.745 -111.899 558.234 -85.7305 630.899 -51.9363C697.375 -21.0203 742.581 34.6241 781.26 96.9041C828.384 172.781 909.184 256.165 872.95 337.805Z" fill="url(#paint0_linear_99_769)"/>
@@ -179,12 +201,36 @@
             UGOLF
         </div>
         <button class="center-button">
-            <a href="/qty" style="color: #7D2B71; text-decoration: none; " class="button-text-container">
+            <a href="/qty" style="color: #7D2B71; text-decoration: none; " aria-label="Beli Tiket" class="button-text-container">
                 <img src="{{ asset('image/Ticket.png') }}" alt="Ticket Image" class="ticket-image">
                 Beli Tiket
             </a>
         </button>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Cek apakah sudah terinisialisasi
+            const isInitialized = localStorage.getItem('initialized') === 'true';
+            const notification = document.getElementById('notification');
+        
+            if (isInitialized) {
+                // Tampilkan notifikasi jika sudah berhasil inisialisasi
+                notification.textContent = 'Initialization successful!';
+                notification.style.display = 'block';
+        
+                // Sembunyikan notifikasi setelah 5 detik
+                setTimeout(function () {
+                    notification.style.display = 'none';
+                }, 3000); // Durasi 5 detik
+        
+            } else {
+                // Jika belum inisialisasi, arahkan pengguna ke halaman input
+                window.location.href = '/request'; // Ganti '/input' dengan URL halaman input Anda
+            }
+        });
+    </script>
+    
 </body>
 
 </html>

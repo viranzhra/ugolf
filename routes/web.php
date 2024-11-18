@@ -9,7 +9,7 @@ Route::middleware('isTrue')->group(function () {
     Route::get('/tiket', [BeliTiketController::class, 'index'])->name('tiket.index');
     Route::post('/tiket/konfirmasi', [BeliTiketController::class, 'konfirmasi'])->name('konfirmasi');
     Route::post('/tiket/pembayaran', [BeliTiketController::class, 'pembayaran'])->name('pembayaran');
-    Route::post('/tiket/sukses', [BeliTiketController::class, 'sukses'])->name('sukses');
+    Route::post('/tiket/status-pembayaran', [BeliTiketController::class, 'status_pembayaran'])->name('status_pembayaran');
 });
 
 Route::get('/', function () {

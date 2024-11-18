@@ -84,67 +84,48 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            $('#initForm').on('submit', function(event) {
+        $(document).ready(function () {
+            $('#initForm').on('submit', function (event) {
                 event.preventDefault();
-    
+
+                const alertBox = $('#alert');
+                const feCode = $('#fe_code').val();
+                const merchantCode = $('#merchant_code').val();
+                const terminalCode = $('#terminal_code').val();
+
                 $.ajax({
-                    url: `http:192.168.43.45/api/frontend/init`,
+                    url: `http://192.168.43.45/api/frontend/init`,
                     type: 'POST',
                     dataType: 'json',
                     data: {
-                        fe_code: $('#fe_code').val(),
-                        merchant_code: $('#merchant_code').val(),
-                        terminal_code: $('#terminal_code').val(),
+                        fe_code: feCode,
+                        merchant_code: merchantCode,
+                        terminal_code: terminalCode,
                     },
-                    success: function(response) {
-                        const alertBox = $('#alert');
+                    success: function (response) {
                         if (response.status) {
-                            alertBox.removeClass('d-none alert-danger').addClass('alert-success')
-                                    .text(response.message);
-
                             // Simpan status inisialisasi ke localStorage
+                            localStorage.setItem('fe_code', feCode);
+                            localStorage.setItem('merchant_code', merchantCode);
+                            localStorage.setItem('terminal_code', terminalCode);
                             localStorage.setItem('initialized', 'true');
-    
-                            // Redirect ke halaman home (index.html)
+
+                            // Redirect ke halaman home
                             window.location.href = '/awal';
                         } else {
+                            // Tampilkan pesan kesalahan
                             alertBox.removeClass('d-none alert-success').addClass('alert-danger')
-                                    .text(response.message + ' (Code: ' + response.code + ')');
+                                .text(response.message + ' (Code: ' + response.code + ')');
                         }
                     },
-                    error: function(xhr) {
-                        $('#alert').removeClass('d-none alert-success').addClass('alert-danger')
-                                .text('An error occurred. Please try again.');
+                    error: function (xhr) {
+                        alertBox.removeClass('d-none alert-success').addClass('alert-danger')
+                            .text('An error occurred. Please try again.');
                     }
                 });
             });
         });
-    </script> 
-
-    <script>
-        document.getElementById('initForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Ambil nilai inputan
-            const feCode = document.getElementById('fe_code').value;
-            const merchantCode = document.getElementById('merchant_code').value;
-            const terminalCode = document.getElementById('terminal_code').value;
-
-            // Simpan ke localStorage
-            localStorage.setItem('fe_code', feCode);
-            localStorage.setItem('merchant_code', merchantCode);
-            localStorage.setItem('terminal_code', terminalCode);
-
-            // Tandai inisialisasi berhasil
-            localStorage.setItem('initialized', 'true');
-
-            // Arahkan ke halaman /awal setelah berhasil
-            window.location.href = '/awal';
-        });
-
     </script>
-
 
     {{-- <div class="judul">Device Initialization</div>
 

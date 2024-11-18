@@ -60,7 +60,7 @@
             <button id="check-status-btn" class="mt-3 d-flex align-items-start"><svg id="svgBack" style="display:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fcfcfc" viewBox="0 0 256 256"><path d="M224,88v80a16,16,0,0,1-16,16H128v40a8,8,0,0,1-13.66,5.66l-96-96a8,8,0,0,1,0-11.32l96-96A8,8,0,0,1,128,32V72h80A16,16,0,0,1,224,88Z"></path></svg><b id="name-status-btn">Cek Status Transaksi</b></button>
         </div>
 
-        <form id="sendDataForm" action="{{ route('sukses') }}" method="POST" style="display: none;">
+        <form id="sendDataForm" action="{{ route('status_pembayaran') }}" method="POST" style="display: none;">
             @csrf
             <input type="hidden" id="isTrueFalse" name="paymentSuccessful" value="false">
         </form>

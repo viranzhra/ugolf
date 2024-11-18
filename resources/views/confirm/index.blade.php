@@ -297,7 +297,7 @@
                 <span id="source-ticket-quantity">{{ session('quantity', 0) }}</span>
             </div>
             <div class="item-row">
-                <span>Harga</span>
+                <span>Harga per Tiket</span>
                 <span id="source-harga">-</span>
             </div>
             <hr>
@@ -322,14 +322,14 @@
     <div class="modal-backdrop" id="confirmModal" style="display: none;">
         <div class="modal-container">
             <h3>Konfirmasi Pembayaran</h3>
-            <p>Apakah pesanan Anda sudah benar?</p>
+            <p>Apakah pesanan Anda sudah sesuai?</p>
             <div class="modal-item-details">
                 <div class="item-row">
                     <span>Jumlah Tiket:</span>
                     <span id="modal-ticket-quantity">-</span>
                 </div>
                 <div class="item-row">
-                    <span>Harga:</span>
+                    <span>Harga per Tiket:</span>
                     <span id="modal-harga">-</span>
                 </div>
                 <hr>
@@ -403,10 +403,40 @@
             document.getElementById('confirmModal').style.display = 'none';
         }
 
-    
+
         function goBack() {
             window.history.back();
         }
+
+        // Ambil jumlah tiket dari session atau localStorage
+        const ticketQuantity = localStorage.getItem('ticketQuantity') || "{{ session('quantity', 0) }}";
+        document.getElementById('source-ticket-quantity').textContent = ticketQuantity;
+
+        // Fetch harga dari API dan tampilkan di rincian pembelian
+        fetch(`{{ env('API_URL') }}/cms`)
+            .then(response => {
+                if (!response.ok) throw new Error('Gagal mengakses API');
+                return response.json();
+            })
+            .then(data => {
+                const hargaData = data.data.find(item => item.cms_code === 1);
+                if (hargaData) {
+                    const harga = parseFloat(hargaData.cms_value);
+
+                    // Format tampilan harga sebagai "Jumlah Tiket x Harga per Tiket"
+                    document.getElementById('source-harga').textContent = `Rp ${harga.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 0})}`;
+                    //document.getElementById('source-harga').textContent = `${ticketQuantity} x Rp ${harga.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 0})}`;
+
+                    // Hitung dan tampilkan total pembayaran
+                    const totalPembayaran = harga * ticketQuantity;
+                    document.getElementById('source-total-pembayaran').textContent = `Rp ${totalPembayaran.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 0})}`;
+                }
+            })
+            .catch(error => {
+                console.error('Terjadi kesalahan:', error);
+                document.getElementById('source-harga').textContent = '-';
+                document.getElementById('source-total-pembayaran').textContent = '-';
+            });
     </script>
 </body>
 

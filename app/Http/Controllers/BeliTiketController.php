@@ -97,7 +97,7 @@ class BeliTiketController extends Controller
         return redirect()->route('tiket.index')->withErrors('Gagal membuat transaksi. Silakan coba lagi.');
     }
 
-    public function sukses(Request $request)
+    public function status_pembayaran(Request $request)
     {
         $request->validate([
             'paymentSuccessful' => 'required|in:true,false',            

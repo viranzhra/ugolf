@@ -20,6 +20,8 @@ Route::get('/request', function () {
     return view('file Request/index');
 });
 
+Route::post('/update-env', [BeliTiketController::class, 'updateENV'])->name('updateEnv');
+
 Route::get('/awal', function () {
     return view('home/index');
 })->name('awal');

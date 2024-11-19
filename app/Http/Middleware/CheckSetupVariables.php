@@ -19,7 +19,7 @@ class CheckSetupVariables
         $terminalId = env('TERMINAL_ID');
         // $expiredTime = env('EXPIRED_TIME');
 
-        if (empty($merchantId) || empty($terminalId)) {
+        if (empty($merchantId) || empty($terminalId) || !session('initialized')) {
             return redirect('/request');
         }
 

@@ -63,6 +63,7 @@ class BeliTiketController extends Controller
         $totalAmount = $amountPerTicket * $qty;
         
         $transactionData = [
+            'feCode' => env('FE_CODE'),
             'merchantId' => env('MERCHANT_ID'),
             'terminalId' => env('TERMINAL_ID'),                
             'qty' => $qty,

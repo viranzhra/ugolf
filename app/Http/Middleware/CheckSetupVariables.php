@@ -15,11 +15,12 @@ class CheckSetupVariables
      */
     public function handle(Request $request, Closure $next)
     {
+        $feCode = env('FE_CODE');
         $merchantId = env('MERCHANT_ID');
         $terminalId = env('TERMINAL_ID');
         // $expiredTime = env('EXPIRED_TIME');
 
-        if (empty($merchantId) || empty($terminalId)) { //  || !session('initialized')
+        if (empty($merchantId) || empty($terminalId) || empty($feCode)) { //  || !session('initialized')
             return redirect('/request');
         }
 

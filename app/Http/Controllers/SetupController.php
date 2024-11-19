@@ -9,6 +9,7 @@ class SetupController extends Controller
     public function updateENV(Request $request)
     {
         try {
+            $feCode = $request->input('FE_CODE');
             $merchantId = $request->input('MERCHANT_ID');
             $terminalId = $request->input('TERMINAL_ID');
     
@@ -19,6 +20,11 @@ class SetupController extends Controller
             // Lokasi file .env
             $path = base_path('.env');
             if (file_exists($path)) {
+                file_put_contents($path, preg_replace(
+                    "/^FE_CODE=.*$/m",
+                    "FE_CODE={$feCode}",
+                    file_get_contents($path)
+                ));
                 file_put_contents($path, preg_replace(
                     "/^MERCHANT_ID=.*$/m",
                     "MERCHANT_ID={$merchantId}",

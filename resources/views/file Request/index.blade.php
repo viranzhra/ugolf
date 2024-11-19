@@ -115,6 +115,7 @@
                                 url: '/update-env',
                                 type: 'POST',
                                 data: {
+                                    FE_CODE: feCode,
                                     MERCHANT_ID: merchantCode,
                                     TERMINAL_ID: terminalCode
                                 },

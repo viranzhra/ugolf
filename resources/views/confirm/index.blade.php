@@ -368,14 +368,21 @@
                     if (hargaData) {
                         const harga = parseFloat(hargaData.cms_value);
 
-                        // Format tampilan harga sebagai "Jumlah Tiket x Harga per Tiket"
-                        document.getElementById('source-harga').textContent =
-                            `${ticketQuantity} x ${harga.toLocaleString()}`;
+                        // // Format tampilan harga sebagai "Jumlah Tiket x Harga per Tiket"
+                        // document.getElementById('source-harga').textContent =
+                        //     `${ticketQuantity} x ${harga.toLocaleString()}`;
+
+                        // // Hitung dan tampilkan total pembayaran
+                        // const totalPembayaran = harga * ticketQuantity;
+                        // document.getElementById('source-total-pembayaran').textContent = totalPembayaran
+                        //     .toLocaleString();
+
+                        document.getElementById('source-harga').textContent = `Rp ${harga.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 0})}`;
+                        //document.getElementById('source-harga').textContent = `${ticketQuantity} x Rp ${harga.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 0})}`;
 
                         // Hitung dan tampilkan total pembayaran
                         const totalPembayaran = harga * ticketQuantity;
-                        document.getElementById('source-total-pembayaran').textContent = totalPembayaran
-                            .toLocaleString();
+                        document.getElementById('source-total-pembayaran').textContent = `Rp ${totalPembayaran.toLocaleString('id-ID', {minimumFractionDigits: 0, maximumFractionDigits: 0})}`;
                     }
                 })
                 .catch(error => {

@@ -12,6 +12,7 @@ use App\Models\CMS;
 // use App\Services\QRISService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\File;
 
 class BeliTiketController extends Controller
 {
@@ -62,6 +63,7 @@ class BeliTiketController extends Controller
         $totalAmount = $amountPerTicket * $qty;
         
         $transactionData = [
+            'feCode' => env('FE_CODE'),
             'merchantId' => env('MERCHANT_ID'),
             'terminalId' => env('TERMINAL_ID'),                
             'qty' => $qty,

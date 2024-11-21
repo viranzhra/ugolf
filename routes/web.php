@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SetupController;
 use App\Http\Controllers\BeliTiketController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ConfirmController;
@@ -19,6 +20,8 @@ Route::get('/', function () {
 Route::get('/request', function () {
     return view('file Request/index');
 });
+
+Route::post('/update-env', [SetupController::class, 'updateENV'])->name('updateEnv');
 
 Route::get('/awal', function () {
     return view('home/index');

@@ -37,22 +37,66 @@
         }
 
         /* Button styling */
-        .btn-primary {
-            font-family: 'Kufam', sans-serif;
-            background-color: #8F3581;
-            border: none;
-            margin-top: 30px;
-            border-radius: 20px;
-            transition: background-color 0.3s ease;
+.btn-primary {
+    font-family: 'Kufam', sans-serif;
+    background-color: #8F3581;  /* Warna default tombol */
+    border: none;
+    margin-top: 30px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    outline: none;  /* Menghilangkan outline biru */
+}
+
+/* Hover effect */
+.btn-primary:hover {
+    background-color: #4f1d49;  /* Warna saat hover */
+}
+
+/* Active effect saat tombol diklik */
+.btn-primary:active {
+    background-color: #b5357d;  /* Warna saat tombol diklik */
+}
+
+        /* Styling for the form container */
+        .form-container {
+            width: 38%;
+            max-width: 776px;
+            padding: 15px;
         }
 
-        /* Hover effect for the button */
-        .btn-primary:hover {
-            background-color: #4f1d49;
+        /* Responsive adjustment */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%; /* Menyesuaikan lebar div dengan ukuran layar */
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .form-container {
+                width: 95%; /* Lebar lebih kecil di layar lebih kecil */
+            }
         }
     </style>
 </head>
 <body>
+    <script>
+        $(document).ready(function () {
+            // Tombol di-klik
+            $('.btn-primary').on('mousedown', function () {
+                // Ubah warna saat tombol ditekan
+                $(this).css('background-color', '#b5357d');
+            });
+    
+            // Tombol dilepaskan
+            $('.btn-primary').on('mouseup', function () {
+                // Kembali ke warna semula
+                $(this).css('background-color', '#8F3581');
+            });
+        });
+    </script>
+    
+
     <!-- Header title -->
     <script>
         // Cek status inisialisasi
@@ -65,7 +109,7 @@
     <!-- Header title -->
     <div class="judul">Device Initialization</div>
 
-    <div style="width: 40%;" class="container mt-5">
+    <div class="form-container mt-5">
         <div id="alert" class="alert d-none" role="alert"></div>
         <form style="background-color: #ffeefc; box-shadow: 2px 5px 10px rgb(0 0 0 / 10%);" id="initForm" class="p-4 border rounded">
             <div class="mb-3">

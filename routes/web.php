@@ -6,6 +6,7 @@ use App\Http\Controllers\BeliTiketController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ConfirmController;
 
+/* Jika Merchant Code, Terminal Code, dan FE_Code Tervalidasi */
 Route::middleware('isTrue')->group(function () {
     Route::get('/tiket', [BeliTiketController::class, 'index'])->name('tiket.index');
     Route::post('/tiket/konfirmasi', [BeliTiketController::class, 'konfirmasi'])->name('konfirmasi');
